@@ -13,6 +13,7 @@
 		256816F822CA417000893007 /* MyShop.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 256816F622CA417000893007 /* MyShop.xcdatamodeld */; };
 		256816FA22CA417300893007 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 256816F922CA417300893007 /* Assets.xcassets */; };
 		256816FD22CA417300893007 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 256816FB22CA417300893007 /* LaunchScreen.storyboard */; };
+		2568171F22CA4AFC00893007 /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2568171E22CA4AFC00893007 /* CoreDataManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +25,17 @@
 		256816F922CA417300893007 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		256816FC22CA417300893007 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		256816FE22CA417300893007 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		2568170922CA498C00893007 /* Product+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Product+CoreDataClass.swift"; sourceTree = "<group>"; };
+		2568170A22CA498C00893007 /* Product+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Product+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		2568170B22CA498C00893007 /* Variant+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Variant+CoreDataClass.swift"; sourceTree = "<group>"; };
+		2568170C22CA498C00893007 /* Variant+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Variant+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		2568170D22CA498C00893007 /* Ranking+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Ranking+CoreDataClass.swift"; sourceTree = "<group>"; };
+		2568170E22CA498C00893007 /* Ranking+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Ranking+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		2568170F22CA498C00893007 /* Categories+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Categories+CoreDataClass.swift"; sourceTree = "<group>"; };
+		2568171022CA498C00893007 /* Categories+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Categories+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		2568171122CA498C00893007 /* Tax+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Tax+CoreDataClass.swift"; sourceTree = "<group>"; };
+		2568171222CA498C00893007 /* Tax+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Tax+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		2568171E22CA4AFC00893007 /* CoreDataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,15 +68,58 @@
 		256816EE22CA417000893007 /* MyShop */ = {
 			isa = PBXGroup;
 			children = (
+				2568170622CA48C000893007 /* CoreData */,
 				256816EF22CA417000893007 /* AppDelegate.swift */,
 				256816F122CA417000893007 /* ViewController.swift */,
 				256816F322CA417000893007 /* Main.storyboard */,
 				256816F922CA417300893007 /* Assets.xcassets */,
 				256816FB22CA417300893007 /* LaunchScreen.storyboard */,
 				256816FE22CA417300893007 /* Info.plist */,
-				256816F622CA417000893007 /* MyShop.xcdatamodeld */,
 			);
 			path = MyShop;
+			sourceTree = "<group>";
+		};
+		2568170622CA48C000893007 /* CoreData */ = {
+			isa = PBXGroup;
+			children = (
+				2568171D22CA4AFC00893007 /* CoreDataManager */,
+				2568170822CA491E00893007 /* ManagedObjectModel */,
+				2568170722CA48D600893007 /* ManagedObjectClasses */,
+			);
+			path = CoreData;
+			sourceTree = "<group>";
+		};
+		2568170722CA48D600893007 /* ManagedObjectClasses */ = {
+			isa = PBXGroup;
+			children = (
+				2568170922CA498C00893007 /* Product+CoreDataClass.swift */,
+				2568170A22CA498C00893007 /* Product+CoreDataProperties.swift */,
+				2568170B22CA498C00893007 /* Variant+CoreDataClass.swift */,
+				2568170C22CA498C00893007 /* Variant+CoreDataProperties.swift */,
+				2568170D22CA498C00893007 /* Ranking+CoreDataClass.swift */,
+				2568170E22CA498C00893007 /* Ranking+CoreDataProperties.swift */,
+				2568170F22CA498C00893007 /* Categories+CoreDataClass.swift */,
+				2568171022CA498C00893007 /* Categories+CoreDataProperties.swift */,
+				2568171122CA498C00893007 /* Tax+CoreDataClass.swift */,
+				2568171222CA498C00893007 /* Tax+CoreDataProperties.swift */,
+			);
+			path = ManagedObjectClasses;
+			sourceTree = "<group>";
+		};
+		2568170822CA491E00893007 /* ManagedObjectModel */ = {
+			isa = PBXGroup;
+			children = (
+				256816F622CA417000893007 /* MyShop.xcdatamodeld */,
+			);
+			path = ManagedObjectModel;
+			sourceTree = "<group>";
+		};
+		2568171D22CA4AFC00893007 /* CoreDataManager */ = {
+			isa = PBXGroup;
+			children = (
+				2568171E22CA4AFC00893007 /* CoreDataManager.swift */,
+			);
+			path = CoreDataManager;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -141,6 +196,7 @@
 				256816F822CA417000893007 /* MyShop.xcdatamodeld in Sources */,
 				256816F222CA417000893007 /* ViewController.swift in Sources */,
 				256816F022CA417000893007 /* AppDelegate.swift in Sources */,
+				2568171F22CA4AFC00893007 /* CoreDataManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
