@@ -22,7 +22,6 @@ extension ProductEntity {
     @NSManaged public var name: String?
     @NSManaged public var tax: TaxEntity?
     @NSManaged public var variants: NSSet?
-    @NSManaged public var ranking: RankingEntity?
     @NSManaged public var category: CategoriesEntity?
 
 }

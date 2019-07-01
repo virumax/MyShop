@@ -38,6 +38,8 @@
 		2568173A22CA5CB900893007 /* TaxEntity+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TaxEntity+CoreDataClass.swift"; sourceTree = "<group>"; };
 		2568173B22CA5CB900893007 /* TaxEntity+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TaxEntity+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		2568174722CA5DE800893007 /* BaseModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseModel.swift; sourceTree = "<group>"; };
+		2568174922CAD29A00893007 /* RankingProductEntity+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RankingProductEntity+CoreDataClass.swift"; sourceTree = "<group>"; };
+		2568174A22CAD29A00893007 /* RankingProductEntity+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RankingProductEntity+CoreDataProperties.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -117,6 +119,8 @@
 				2568173522CA5CB900893007 /* CategoriesEntity+CoreDataProperties.swift */,
 				2568173622CA5CB900893007 /* RankingEntity+CoreDataClass.swift */,
 				2568173722CA5CB900893007 /* RankingEntity+CoreDataProperties.swift */,
+				2568174922CAD29A00893007 /* RankingProductEntity+CoreDataClass.swift */,
+				2568174A22CAD29A00893007 /* RankingProductEntity+CoreDataProperties.swift */,
 				2568173822CA5CB900893007 /* VariantEntity+CoreDataClass.swift */,
 				2568173922CA5CB900893007 /* VariantEntity+CoreDataProperties.swift */,
 				2568173A22CA5CB900893007 /* TaxEntity+CoreDataClass.swift */,

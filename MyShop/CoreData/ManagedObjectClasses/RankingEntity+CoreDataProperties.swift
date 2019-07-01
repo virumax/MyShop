@@ -26,10 +26,10 @@ extension RankingEntity {
 extension RankingEntity {
 
     @objc(addProductsObject:)
-    @NSManaged public func addToProducts(_ value: ProductEntity)
+    @NSManaged public func addToProducts(_ value: RankingProductEntity)
 
     @objc(removeProductsObject:)
-    @NSManaged public func removeFromProducts(_ value: ProductEntity)
+    @NSManaged public func removeFromProducts(_ value: RankingProductEntity)
 
     @objc(addProducts:)
     @NSManaged public func addToProducts(_ values: NSSet)
