@@ -1,5 +1,5 @@
 //
-//  Tax+CoreDataClass.swift
+//  RankingEntity+CoreDataClass.swift
 //  MyShop
 //
 //  Created by Virendra Ravalji on 2019/7/1.
@@ -10,7 +10,7 @@
 import Foundation
 import CoreData
 
-@objc(Tax)
-public class Tax: NSManagedObject {
+@objc(RankingEntity)
+public class RankingEntity: NSManagedObject {
 
 }

@@ -1,5 +1,5 @@
 //
-//  Product+CoreDataClass.swift
+//  TaxEntity+CoreDataClass.swift
 //  MyShop
 //
 //  Created by Virendra Ravalji on 2019/7/1.
@@ -10,7 +10,7 @@
 import Foundation
 import CoreData
 
-@objc(Product)
-public class Product: NSManagedObject {
+@objc(TaxEntity)
+public class TaxEntity: NSManagedObject {
 
 }

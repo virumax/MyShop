@@ -1,5 +1,5 @@
 //
-//  Ranking+CoreDataProperties.swift
+//  RankingEntity+CoreDataProperties.swift
 //  MyShop
 //
 //  Created by Virendra Ravalji on 2019/7/1.
@@ -11,10 +11,10 @@ import Foundation
 import CoreData
 
 
-extension Ranking {
+extension RankingEntity {
 
-    @nonobjc public class func fetchRequest() -> NSFetchRequest<Ranking> {
-        return NSFetchRequest<Ranking>(entityName: "Ranking")
+    @nonobjc public class func fetchRequest() -> NSFetchRequest<RankingEntity> {
+        return NSFetchRequest<RankingEntity>(entityName: "RankingEntity")
     }
 
     @NSManaged public var name: String?
@@ -23,13 +23,13 @@ extension Ranking {
 }
 
 // MARK: Generated accessors for products
-extension Ranking {
+extension RankingEntity {
 
     @objc(addProductsObject:)
-    @NSManaged public func addToProducts(_ value: Product)
+    @NSManaged public func addToProducts(_ value: ProductEntity)
 
     @objc(removeProductsObject:)
-    @NSManaged public func removeFromProducts(_ value: Product)
+    @NSManaged public func removeFromProducts(_ value: ProductEntity)
 
     @objc(addProducts:)
     @NSManaged public func addToProducts(_ values: NSSet)

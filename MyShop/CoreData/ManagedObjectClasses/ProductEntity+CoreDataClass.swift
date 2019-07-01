@@ -1,5 +1,5 @@
 //
-//  Variant+CoreDataClass.swift
+//  ProductEntity+CoreDataClass.swift
 //  MyShop
 //
 //  Created by Virendra Ravalji on 2019/7/1.
@@ -10,7 +10,7 @@
 import Foundation
 import CoreData
 
-@objc(Variant)
-public class Variant: NSManagedObject {
+@objc(ProductEntity)
+public class ProductEntity: NSManagedObject {
 
 }

@@ -1,5 +1,5 @@
 //
-//  Product+CoreDataProperties.swift
+//  ProductEntity+CoreDataProperties.swift
 //  MyShop
 //
 //  Created by Virendra Ravalji on 2019/7/1.
@@ -11,28 +11,30 @@ import Foundation
 import CoreData
 
 
-extension Product {
+extension ProductEntity {
 
-    @nonobjc public class func fetchRequest() -> NSFetchRequest<Product> {
-        return NSFetchRequest<Product>(entityName: "Product")
+    @nonobjc public class func fetchRequest() -> NSFetchRequest<ProductEntity> {
+        return NSFetchRequest<ProductEntity>(entityName: "ProductEntity")
     }
 
+    @NSManaged public var dateAdded: NSDate?
     @NSManaged public var id: Int64
     @NSManaged public var name: String?
-    @NSManaged public var dateAdded: NSDate?
+    @NSManaged public var tax: TaxEntity?
     @NSManaged public var variants: NSSet?
-    @NSManaged public var tax: Tax?
+    @NSManaged public var ranking: RankingEntity?
+    @NSManaged public var category: CategoriesEntity?
 
 }
 
 // MARK: Generated accessors for variants
-extension Product {
+extension ProductEntity {
 
     @objc(addVariantsObject:)
-    @NSManaged public func addToVariants(_ value: Variant)
+    @NSManaged public func addToVariants(_ value: VariantEntity)
 
     @objc(removeVariantsObject:)
-    @NSManaged public func removeFromVariants(_ value: Variant)
+    @NSManaged public func removeFromVariants(_ value: VariantEntity)
 
     @objc(addVariants:)
     @NSManaged public func addToVariants(_ values: NSSet)

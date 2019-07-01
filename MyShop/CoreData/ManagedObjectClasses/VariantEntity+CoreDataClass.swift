@@ -1,5 +1,5 @@
 //
-//  Ranking+CoreDataClass.swift
+//  VariantEntity+CoreDataClass.swift
 //  MyShop
 //
 //  Created by Virendra Ravalji on 2019/7/1.
@@ -10,7 +10,7 @@
 import Foundation
 import CoreData
 
-@objc(Ranking)
-public class Ranking: NSManagedObject {
+@objc(VariantEntity)
+public class VariantEntity: NSManagedObject {
 
 }

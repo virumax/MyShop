@@ -1,5 +1,5 @@
 //
-//  Categories+CoreDataClass.swift
+//  CategoriesEntity+CoreDataClass.swift
 //  MyShop
 //
 //  Created by Virendra Ravalji on 2019/7/1.
@@ -10,7 +10,7 @@
 import Foundation
 import CoreData
 
-@objc(Categories)
-public class Categories: NSManagedObject {
+@objc(CategoriesEntity)
+public class CategoriesEntity: NSManagedObject {
 
 }

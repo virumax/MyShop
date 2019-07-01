@@ -1,5 +1,5 @@
 //
-//  Tax+CoreDataProperties.swift
+//  TaxEntity+CoreDataProperties.swift
 //  MyShop
 //
 //  Created by Virendra Ravalji on 2019/7/1.
@@ -11,13 +11,14 @@ import Foundation
 import CoreData
 
 
-extension Tax {
+extension TaxEntity {
 
-    @nonobjc public class func fetchRequest() -> NSFetchRequest<Tax> {
-        return NSFetchRequest<Tax>(entityName: "Tax")
+    @nonobjc public class func fetchRequest() -> NSFetchRequest<TaxEntity> {
+        return NSFetchRequest<TaxEntity>(entityName: "TaxEntity")
     }
 
     @NSManaged public var name: String?
     @NSManaged public var value: Int32
+    @NSManaged public var product: ProductEntity?
 
 }
