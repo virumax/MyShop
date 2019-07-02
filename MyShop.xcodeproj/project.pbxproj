@@ -15,6 +15,7 @@
 		256816FD22CA417300893007 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 256816FB22CA417300893007 /* LaunchScreen.storyboard */; };
 		2568171F22CA4AFC00893007 /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2568171E22CA4AFC00893007 /* CoreDataManager.swift */; };
 		2568174822CA5DE800893007 /* BaseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2568174722CA5DE800893007 /* BaseModel.swift */; };
+		2568175122CAD65C00893007 /* APIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2568175022CAD65C00893007 /* APIService.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -40,6 +41,7 @@
 		2568174722CA5DE800893007 /* BaseModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseModel.swift; sourceTree = "<group>"; };
 		2568174922CAD29A00893007 /* RankingProductEntity+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RankingProductEntity+CoreDataClass.swift"; sourceTree = "<group>"; };
 		2568174A22CAD29A00893007 /* RankingProductEntity+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RankingProductEntity+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		2568175022CAD65C00893007 /* APIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIService.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -72,6 +74,7 @@
 		256816EE22CA417000893007 /* MyShop */ = {
 			isa = PBXGroup;
 			children = (
+				2568174D22CAD55700893007 /* Global */,
 				2568174622CA5DE800893007 /* Model */,
 				2568170622CA48C000893007 /* CoreData */,
 				256816EF22CA417000893007 /* AppDelegate.swift */,
@@ -135,6 +138,30 @@
 				2568174722CA5DE800893007 /* BaseModel.swift */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		2568174D22CAD55700893007 /* Global */ = {
+			isa = PBXGroup;
+			children = (
+				2568174E22CAD55E00893007 /* Services */,
+			);
+			path = Global;
+			sourceTree = "<group>";
+		};
+		2568174E22CAD55E00893007 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				2568174F22CAD56700893007 /* Network */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		2568174F22CAD56700893007 /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				2568175022CAD65C00893007 /* APIService.swift */,
+			);
+			path = Network;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -212,6 +239,7 @@
 				2568174822CA5DE800893007 /* BaseModel.swift in Sources */,
 				256816F222CA417000893007 /* ViewController.swift in Sources */,
 				256816F022CA417000893007 /* AppDelegate.swift in Sources */,
+				2568175122CAD65C00893007 /* APIService.swift in Sources */,
 				2568171F22CA4AFC00893007 /* CoreDataManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
