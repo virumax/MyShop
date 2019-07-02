@@ -101,5 +101,10 @@ class CoreDataManager {
         let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "CategoriesEntity")
         return try? managedObjectContext?.fetch(fetchRequest) as? [CategoriesEntity]
     }
+    
+    func fetchProducts() -> [ProductEntity]? {
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "ProductEntity")
+        return try? managedObjectContext?.fetch(fetchRequest) as? [ProductEntity]
+    }
 }
 

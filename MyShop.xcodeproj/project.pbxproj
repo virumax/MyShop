@@ -57,6 +57,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2516064C22CB7EB800C09DAC /* View */ = {
+			isa = PBXGroup;
+			children = (
+				256816F122CA417000893007 /* ViewController.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 		256816E322CA417000893007 = {
 			isa = PBXGroup;
 			children = (
@@ -76,11 +84,11 @@
 		256816EE22CA417000893007 /* MyShop */ = {
 			isa = PBXGroup;
 			children = (
+				2516064C22CB7EB800C09DAC /* View */,
 				2568174D22CAD55700893007 /* Global */,
 				2568175222CADBE300893007 /* ViewModel */,
 				2568174622CA5DE800893007 /* Model */,
 				256816EF22CA417000893007 /* AppDelegate.swift */,
-				256816F122CA417000893007 /* ViewController.swift */,
 				256816F322CA417000893007 /* Main.storyboard */,
 				256816F922CA417300893007 /* Assets.xcassets */,
 				256816FB22CA417300893007 /* LaunchScreen.storyboard */,
