@@ -17,7 +17,7 @@ extension ProductEntity {
         return NSFetchRequest<ProductEntity>(entityName: "ProductEntity")
     }
 
-    @NSManaged public var dateAdded: NSDate?
+    @NSManaged public var dateAdded: String?
     @NSManaged public var id: Int64
     @NSManaged public var name: String?
     @NSManaged public var tax: TaxEntity?

@@ -16,6 +16,7 @@
 		2568171F22CA4AFC00893007 /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2568171E22CA4AFC00893007 /* CoreDataManager.swift */; };
 		2568174822CA5DE800893007 /* BaseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2568174722CA5DE800893007 /* BaseModel.swift */; };
 		2568175122CAD65C00893007 /* APIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2568175022CAD65C00893007 /* APIService.swift */; };
+		2568175422CADC7800893007 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2568175322CADC7800893007 /* HomeViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -42,6 +43,7 @@
 		2568174922CAD29A00893007 /* RankingProductEntity+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RankingProductEntity+CoreDataClass.swift"; sourceTree = "<group>"; };
 		2568174A22CAD29A00893007 /* RankingProductEntity+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RankingProductEntity+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		2568175022CAD65C00893007 /* APIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIService.swift; sourceTree = "<group>"; };
+		2568175322CADC7800893007 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -75,8 +77,8 @@
 			isa = PBXGroup;
 			children = (
 				2568174D22CAD55700893007 /* Global */,
+				2568175222CADBE300893007 /* ViewModel */,
 				2568174622CA5DE800893007 /* Model */,
-				2568170622CA48C000893007 /* CoreData */,
 				256816EF22CA417000893007 /* AppDelegate.swift */,
 				256816F122CA417000893007 /* ViewController.swift */,
 				256816F322CA417000893007 /* Main.storyboard */,
@@ -94,7 +96,8 @@
 				2568171D22CA4AFC00893007 /* CoreDataManager */,
 				2568170822CA491E00893007 /* ManagedObjectModel */,
 			);
-			path = CoreData;
+			name = CoreData;
+			path = ../CoreData;
 			sourceTree = "<group>";
 		};
 		2568170822CA491E00893007 /* ManagedObjectModel */ = {
@@ -143,6 +146,7 @@
 		2568174D22CAD55700893007 /* Global */ = {
 			isa = PBXGroup;
 			children = (
+				2568170622CA48C000893007 /* CoreData */,
 				2568174E22CAD55E00893007 /* Services */,
 			);
 			path = Global;
@@ -162,6 +166,14 @@
 				2568175022CAD65C00893007 /* APIService.swift */,
 			);
 			path = Network;
+			sourceTree = "<group>";
+		};
+		2568175222CADBE300893007 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				2568175322CADC7800893007 /* HomeViewModel.swift */,
+			);
+			path = ViewModel;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -237,6 +249,7 @@
 			files = (
 				256816F822CA417000893007 /* MyShop.xcdatamodeld in Sources */,
 				2568174822CA5DE800893007 /* BaseModel.swift in Sources */,
+				2568175422CADC7800893007 /* HomeViewModel.swift in Sources */,
 				256816F222CA417000893007 /* ViewController.swift in Sources */,
 				256816F022CA417000893007 /* AppDelegate.swift in Sources */,
 				2568175122CAD65C00893007 /* APIService.swift in Sources */,

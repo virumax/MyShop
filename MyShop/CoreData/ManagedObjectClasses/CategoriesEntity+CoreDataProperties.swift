@@ -20,7 +20,7 @@ extension CategoriesEntity {
     @NSManaged public var hasParent: Bool
     @NSManaged public var id: Int64
     @NSManaged public var name: String?
-    @NSManaged public var subCategories: NSObject?
+    @NSManaged public var subCategories: [Int64]?
     @NSManaged public var products: NSSet?
 
 }

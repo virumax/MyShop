@@ -16,7 +16,7 @@ class CoreDataManager {
     private init() {
     }
 
-    // MARK: - Core Data Saving support
+    // MARK: - Save data to db
     func saveContext() {
         // Check if the view controller managed object context is not nil.
         // Since we are note cleaning this instance, on our case,
@@ -36,4 +36,70 @@ class CoreDataManager {
             }
         }
     }
+    
+    // MARK: - Insert data to db
+    func insertData(_ baseModel: BaseModel) {
+        for category in baseModel.categories {
+            if let categoryRecord = insertNewCategory(category: category) {
+                for product in category.products {
+                    if let productRecord = insertNewProduct(categoryProduct: product) {
+                        for variant in product.variants {
+                            if let variantRecord = insertNewVariant(variant: variant) {
+                                productRecord.addToVariants(variantRecord)
+                            }
+                        }
+                        
+                        if let taxRecord = insertNewTax(tax: product.tax) {
+                            productRecord.tax = taxRecord
+                        }
+                        categoryRecord.addToProducts(productRecord)
+                    }
+                }
+                if category.childCategories.count > 0 {
+                    categoryRecord.subCategories = category.childCategories as NSObject
+                }
+            }
+        }
+        
+        // Save context
+        saveContext()
+    }
+    
+    func insertNewCategory(category: Category) -> CategoriesEntity? {
+        let categoryRecord = NSEntityDescription.insertNewObject(forEntityName: "CategoriesEntity", into: managedObjectContext!) as! CategoriesEntity
+        categoryRecord.id = Int64(category.id)
+        categoryRecord.name = category.name
+        return categoryRecord
+    }
+    
+    func insertNewProduct(categoryProduct: CategoryProduct) -> ProductEntity? {
+        let productRecord = NSEntityDescription.insertNewObject(forEntityName: "ProductEntity", into: managedObjectContext!) as! ProductEntity
+        productRecord.id = Int64(categoryProduct.id)
+        productRecord.name = categoryProduct.name
+        productRecord.dateAdded = categoryProduct.dateAdded
+        return productRecord
+    }
+    
+    func insertNewVariant(variant: Variant) -> VariantEntity? {
+        let variantRecord = NSEntityDescription.insertNewObject(forEntityName: "VariantEntity", into: managedObjectContext!) as! VariantEntity
+        variantRecord.id = Int64(variant.id)
+        variantRecord.color = variant.color
+        variantRecord.price = Int32(variant.price)
+        variantRecord.size = Int16(variant.size ?? 0) // considered default size to be 0
+        return variantRecord
+    }
+    
+    func insertNewTax(tax: Tax) -> TaxEntity? {
+        let taxRecord = NSEntityDescription.insertNewObject(forEntityName: "TaxEntity", into: managedObjectContext!) as! TaxEntity
+        taxRecord.name = tax.name.rawValue
+        taxRecord.value = tax.value
+        return taxRecord
+    }
+    
+    // MARK: Fetch data from DB
+    func fetchCategories() -> [CategoriesEntity]? {
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "CategoriesEntity")
+        return try? managedObjectContext?.fetch(fetchRequest) as? [CategoriesEntity]
+    }
 }
+

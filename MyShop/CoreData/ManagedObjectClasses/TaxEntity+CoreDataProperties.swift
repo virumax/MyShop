@@ -18,7 +18,7 @@ extension TaxEntity {
     }
 
     @NSManaged public var name: String?
-    @NSManaged public var value: Int32
+    @NSManaged public var value: Double
     @NSManaged public var product: ProductEntity?
 
 }

@@ -8,7 +8,7 @@
         <relationship name="products" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="ProductEntity" inverseName="category" inverseEntity="ProductEntity" syncable="YES"/>
     </entity>
     <entity name="ProductEntity" representedClassName="ProductEntity" syncable="YES" codeGenerationType="class">
-        <attribute name="dateAdded" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="dateAdded" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="id" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="category" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CategoriesEntity" inverseName="products" inverseEntity="CategoriesEntity" syncable="YES"/>
@@ -28,7 +28,7 @@
     </entity>
     <entity name="TaxEntity" representedClassName="TaxEntity" syncable="YES" codeGenerationType="class">
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="value" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="value" optional="YES" attributeType="Double" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <relationship name="product" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="ProductEntity" inverseName="tax" inverseEntity="ProductEntity" syncable="YES"/>
     </entity>
     <entity name="VariantEntity" representedClassName="VariantEntity" syncable="YES" codeGenerationType="class">
@@ -40,10 +40,10 @@
     </entity>
     <elements>
         <element name="CategoriesEntity" positionX="-58.30859375" positionY="-191.29296875" width="128" height="118"/>
-        <element name="ProductEntity" positionX="-202.8984375" positionY="3.21875" width="128" height="133"/>
+        <element name="ProductEntity" positionX="-202.8984375" positionY="3.21875" width="128" height="135"/>
         <element name="RankingEntity" positionX="-369.58203125" positionY="-162.04296875" width="128" height="73"/>
-        <element name="TaxEntity" positionX="-73.08984375" positionY="177.62109375" width="128" height="88"/>
-        <element name="VariantEntity" positionX="-352.453125" positionY="162.625" width="128" height="118"/>
         <element name="RankingProductEntity" positionX="-171" positionY="9" width="128" height="120"/>
+        <element name="TaxEntity" positionX="-73.08984375" positionY="177.62109375" width="128" height="90"/>
+        <element name="VariantEntity" positionX="-352.453125" positionY="162.625" width="128" height="118"/>
     </elements>
 </model>
