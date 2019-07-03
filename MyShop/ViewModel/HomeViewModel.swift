@@ -8,14 +8,24 @@
 
 import Foundation
 
-protocol HomeViewModelProtocol {
-    var products: [ProductEntity]? { get }
-    var productsDidChange: ((HomeViewModelProtocol) -> ())? { get set } // function to call when greeting did change
-    init(apiService: APIService)
-    func fetchData()
+protocol RefreshHomeViewProtocol: class {
+    func refreshHomeView(forCategory: CategoriesEntity)
 }
 
-class HomeViewModel: HomeViewModelProtocol {
+protocol HomeViewModelProtocol {
+    var titleText: String { get }
+    var products: [ProductEntity]? { get }
+    var categories: [CategoriesEntity]? { get }
+    var productsDidChange: ((HomeViewModelProtocol) -> ())? { get set } // function to call when greeting did change
+    
+    init(apiService: APIService)
+    func fetchData()
+    func getCategories(completionHandler: ([CategoriesEntity]?) -> Void)
+}
+
+class HomeViewModel: HomeViewModelProtocol, RefreshHomeViewProtocol {
+    var categories: [CategoriesEntity]?
+    let titleText = "MyShop"
     var apiService: APIService
     var productsDidChange: ((HomeViewModelProtocol) -> ())?
     var products: [ProductEntity]? {
@@ -23,25 +33,39 @@ class HomeViewModel: HomeViewModelProtocol {
             self.productsDidChange?(self)
         }
     }
+    
     required init(apiService: APIService) {
         self.apiService = apiService
     }
     
     func fetchData() {
-        if let categories = CoreDataManager.sharedInstance.fetchCategories(), categories.count > 0 {
+        // Fetch the categories to check whether DB has been updated
+        if let products = CoreDataManager.sharedInstance.fetchProducts(), products.count > 0 {
             // Records are present already
-            showProducts()
+            self.products = products
         } else {
             self.apiService.fetchData { [weak self](baseModel, error) in
                 if let baseModel = baseModel {
                     CoreDataManager.sharedInstance.insertData(baseModel)
-                    self?.showProducts()
+                    if let products = CoreDataManager.sharedInstance.fetchProducts(), products.count > 0 {
+                        // Records are present already
+                        self?.products = products
+                    }
                 }
             }
         }
     }
     
-    func showProducts() {
-        products = CoreDataManager.sharedInstance.fetchProducts()
+    func getCategories(completionHandler: ([CategoriesEntity]?) -> Void) {
+        // Fetch the categories to check whether DB has been updated
+        if let categories = CoreDataManager.sharedInstance.fetchCategories(), categories.count > 0 {
+            completionHandler(categories)
+        } else {
+            completionHandler(nil)
+        }
+    }
+    
+    func refreshHomeView(forCategory: CategoriesEntity) {
+        products = forCategory.products?.allObjects as? [ProductEntity]
     }
 }

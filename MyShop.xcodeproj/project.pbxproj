@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2516064E22CB8A6F00C09DAC /* ProductCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2516064D22CB8A6F00C09DAC /* ProductCollectionViewCell.swift */; };
+		2516065022CBA70700C09DAC /* MenuTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2516064F22CBA70600C09DAC /* MenuTableViewController.swift */; };
+		2516065222CC2D7B00C09DAC /* CategoriesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2516065122CC2D7B00C09DAC /* CategoriesViewModel.swift */; };
 		256816F022CA417000893007 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 256816EF22CA417000893007 /* AppDelegate.swift */; };
 		256816F222CA417000893007 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 256816F122CA417000893007 /* ViewController.swift */; };
 		256816F522CA417000893007 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 256816F322CA417000893007 /* Main.storyboard */; };
@@ -17,9 +20,14 @@
 		2568174822CA5DE800893007 /* BaseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2568174722CA5DE800893007 /* BaseModel.swift */; };
 		2568175122CAD65C00893007 /* APIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2568175022CAD65C00893007 /* APIService.swift */; };
 		2568175422CADC7800893007 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2568175322CADC7800893007 /* HomeViewModel.swift */; };
+		94519A31DFB48F9B6E28AD9D /* Pods_MyShop.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1C7D6A962FDA7CF70EF4D97D /* Pods_MyShop.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1C7D6A962FDA7CF70EF4D97D /* Pods_MyShop.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MyShop.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		2516064D22CB8A6F00C09DAC /* ProductCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductCollectionViewCell.swift; sourceTree = "<group>"; };
+		2516064F22CBA70600C09DAC /* MenuTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuTableViewController.swift; sourceTree = "<group>"; };
+		2516065122CC2D7B00C09DAC /* CategoriesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesViewModel.swift; sourceTree = "<group>"; };
 		256816EC22CA417000893007 /* MyShop.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyShop.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		256816EF22CA417000893007 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		256816F122CA417000893007 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -44,6 +52,8 @@
 		2568174A22CAD29A00893007 /* RankingProductEntity+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RankingProductEntity+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		2568175022CAD65C00893007 /* APIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIService.swift; sourceTree = "<group>"; };
 		2568175322CADC7800893007 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
+		262AD2B332DA2E77ED4176D1 /* Pods-MyShop.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MyShop.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MyShop/Pods-MyShop.debug.xcconfig"; sourceTree = "<group>"; };
+		7AE5E4B9AFDBDBC566B55C64 /* Pods-MyShop.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MyShop.release.xcconfig"; path = "Pods/Target Support Files/Pods-MyShop/Pods-MyShop.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -51,6 +61,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				94519A31DFB48F9B6E28AD9D /* Pods_MyShop.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -61,6 +72,8 @@
 			isa = PBXGroup;
 			children = (
 				256816F122CA417000893007 /* ViewController.swift */,
+				2516064F22CBA70600C09DAC /* MenuTableViewController.swift */,
+				2516064D22CB8A6F00C09DAC /* ProductCollectionViewCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -70,6 +83,8 @@
 			children = (
 				256816EE22CA417000893007 /* MyShop */,
 				256816ED22CA417000893007 /* Products */,
+				ADD2D7DB24B109BCF8259EF9 /* Pods */,
+				CD1E2DEF0BE4C950999CA917 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -84,10 +99,10 @@
 		256816EE22CA417000893007 /* MyShop */ = {
 			isa = PBXGroup;
 			children = (
-				2516064C22CB7EB800C09DAC /* View */,
 				2568174D22CAD55700893007 /* Global */,
-				2568175222CADBE300893007 /* ViewModel */,
 				2568174622CA5DE800893007 /* Model */,
+				2516064C22CB7EB800C09DAC /* View */,
+				2568175222CADBE300893007 /* ViewModel */,
 				256816EF22CA417000893007 /* AppDelegate.swift */,
 				256816F322CA417000893007 /* Main.storyboard */,
 				256816F922CA417300893007 /* Assets.xcassets */,
@@ -180,8 +195,26 @@
 			isa = PBXGroup;
 			children = (
 				2568175322CADC7800893007 /* HomeViewModel.swift */,
+				2516065122CC2D7B00C09DAC /* CategoriesViewModel.swift */,
 			);
 			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		ADD2D7DB24B109BCF8259EF9 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				262AD2B332DA2E77ED4176D1 /* Pods-MyShop.debug.xcconfig */,
+				7AE5E4B9AFDBDBC566B55C64 /* Pods-MyShop.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		CD1E2DEF0BE4C950999CA917 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				1C7D6A962FDA7CF70EF4D97D /* Pods_MyShop.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -191,9 +224,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 2568170122CA417300893007 /* Build configuration list for PBXNativeTarget "MyShop" */;
 			buildPhases = (
+				EBC88BDF4E218D9DC9464D9C /* [CP] Check Pods Manifest.lock */,
 				256816E822CA417000893007 /* Sources */,
 				256816E922CA417000893007 /* Frameworks */,
 				256816EA22CA417000893007 /* Resources */,
+				2E10E08C0E6C66938D089F01 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -250,6 +285,53 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		2E10E08C0E6C66938D089F01 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-MyShop/Pods-MyShop-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/CollapsibleTableSectionViewController/CollapsibleTableSectionViewController.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CollapsibleTableSectionViewController.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-MyShop/Pods-MyShop-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		EBC88BDF4E218D9DC9464D9C /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-MyShop-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		256816E822CA417000893007 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -257,8 +339,11 @@
 			files = (
 				256816F822CA417000893007 /* MyShop.xcdatamodeld in Sources */,
 				2568174822CA5DE800893007 /* BaseModel.swift in Sources */,
+				2516065222CC2D7B00C09DAC /* CategoriesViewModel.swift in Sources */,
+				2516064E22CB8A6F00C09DAC /* ProductCollectionViewCell.swift in Sources */,
 				2568175422CADC7800893007 /* HomeViewModel.swift in Sources */,
 				256816F222CA417000893007 /* ViewController.swift in Sources */,
+				2516065022CBA70700C09DAC /* MenuTableViewController.swift in Sources */,
 				256816F022CA417000893007 /* AppDelegate.swift in Sources */,
 				2568175122CAD65C00893007 /* APIService.swift in Sources */,
 				2568171F22CA4AFC00893007 /* CoreDataManager.swift in Sources */,
@@ -405,6 +490,7 @@
 		};
 		2568170222CA417300893007 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 262AD2B332DA2E77ED4176D1 /* Pods-MyShop.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -422,6 +508,7 @@
 		};
 		2568170322CA417300893007 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 7AE5E4B9AFDBDBC566B55C64 /* Pods-MyShop.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;

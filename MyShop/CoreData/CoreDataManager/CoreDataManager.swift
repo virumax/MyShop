@@ -106,5 +106,24 @@ class CoreDataManager {
         let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "ProductEntity")
         return try? managedObjectContext?.fetch(fetchRequest) as? [ProductEntity]
     }
+    
+    func fetchedCategory(_ categoryId: Int) -> CategoriesEntity? {
+//        let widgetFetch = NSFetchRequest<NSFetchRequestResult>(entityName: "CategoriesEntity")
+//
+//        widgetFetch.fetchLimit = 1
+//        widgetFetch.predicate = NSPredicate(format: "SELF = %@", objectId)
+//
+//        let widgets = try! managedObjectContext?.fetch(widgetFetch)
+//
+//        let widget: Widget = widgets?.first as! Widget
+        
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "CategoriesEntity")
+        fetchRequest.fetchLimit = 1
+        fetchRequest.predicate = NSPredicate(format: "id = %d", categoryId)
+        
+        let categories = try? managedObjectContext?.fetch(fetchRequest) as? [CategoriesEntity]
+        
+        return categories?.first
+    }
 }
 
