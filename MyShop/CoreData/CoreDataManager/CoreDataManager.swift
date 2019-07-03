@@ -61,6 +61,16 @@ class CoreDataManager {
             }
         }
         
+        for ranking in baseModel.rankings {
+            if let rankingRecord = insertNewRanking(ranking: ranking) {
+                for rankingProduct in ranking.products {
+                    if let productRecord = insertNewRankingProduct(ranking: rankingProduct){
+                        rankingRecord.addToProducts(productRecord)
+                    }
+                }
+            }
+        }
+        
         // Save context
         saveContext()
     }
@@ -96,10 +106,30 @@ class CoreDataManager {
         return taxRecord
     }
     
+    func insertNewRanking(ranking: Ranking) -> RankingEntity? {
+        let rankingRecord = NSEntityDescription.insertNewObject(forEntityName: "RankingEntity", into: managedObjectContext!) as! RankingEntity
+        rankingRecord.name = ranking.ranking
+        return rankingRecord
+    }
+    
+    func insertNewRankingProduct(ranking: RankingProduct) -> RankingProductEntity? {
+        let rankingProductRecord = NSEntityDescription.insertNewObject(forEntityName: "RankingProductEntity", into: managedObjectContext!) as! RankingProductEntity
+        rankingProductRecord.id = Int64(ranking.id)
+        rankingProductRecord.orderCount = Int64(ranking.orderCount ?? 0)
+        rankingProductRecord.viewCount = Int64(ranking.viewCount ?? 0)
+        rankingProductRecord.shares = Int64(ranking.shares ?? 0)
+        return rankingProductRecord
+    }
+    
     // MARK: Fetch data from DB
     func fetchCategories() -> [CategoriesEntity]? {
         let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "CategoriesEntity")
         return try? managedObjectContext?.fetch(fetchRequest) as? [CategoriesEntity]
+    }
+    
+    func fetchRankings() -> [RankingEntity]? {
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "RankingEntity")
+        return try? managedObjectContext?.fetch(fetchRequest) as? [RankingEntity]
     }
     
     func fetchProducts() -> [ProductEntity]? {

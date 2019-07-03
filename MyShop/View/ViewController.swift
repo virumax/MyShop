@@ -27,18 +27,22 @@ class ViewController: UIViewController {
         // Set title
         self.navigationItem.title = viewModel.titleText
         
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Filter", style: .done, target: self, action: #selector(filterTapped))
-        self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Categories", style: .done, target: self, action: #selector(filterTapped))
+        let filterButton = UIBarButtonItem(title: "Filter", style: .done, target: self, action: #selector(showFilterMenu))
+        let rankingButton = UIBarButtonItem(title: "Rankings", style: .done, target: self, action: #selector(showRankingMenu))
+        self.navigationItem.rightBarButtonItems = [rankingButton, filterButton]
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Categories", style: .done, target: self, action: #selector(showCategories))
     }
     
     func initViewModel() {
         // Whenever products array updates reload the collection view
         viewModel.productsDidChange = { [unowned self] viewModel in
-            self.collectionView.reloadData()
+            DispatchQueue.main.async {
+                self.collectionView.reloadData()
+            }
         }
     }
     
-    @objc func filterTapped(sender: UIBarButtonItem) {
+    @objc func showCategories() {
         viewModel.getCategories { (categories) in
             if let categories = categories {
                 let categoriesMenu = MenuTableViewController()
@@ -47,6 +51,45 @@ class ViewController: UIViewController {
                 categoriesMenu.categoryViewModel = categoriesViewModel
                 let navigationController = UINavigationController.init(rootViewController: categoriesMenu)
                 self.navigationController?.present(navigationController, animated: true, completion: nil)
+            }
+        }
+    }
+    
+    @objc func showFilterMenu() {
+        let alert = UIAlertController(title: "Variants", message: "Please Select an Option", preferredStyle: .actionSheet)
+        
+        alert.addAction(UIAlertAction(title: "By Color", style: .default , handler:{ (UIAlertAction)in
+            print("User click \(String(describing: UIAlertAction.title)) button")
+            
+        }))
+        
+        alert.addAction(UIAlertAction(title: "By Size", style: .default , handler:{ (UIAlertAction)in
+            print("User click \(String(describing: UIAlertAction.title)) button")
+        }))
+        
+        alert.addAction(UIAlertAction(title: "Dismiss", style: .cancel, handler:{ (UIAlertAction)in
+            print("User click \(String(describing: UIAlertAction.title)) button")
+        }))
+        
+        self.present(alert, animated: true, completion: nil)
+    }
+    
+    @objc func showRankingMenu() {
+        viewModel.getRankings { (rankings) in
+            if let rankings = rankings, rankings.count > 0 {
+                let alert = UIAlertController(title: "Rankings", message: "Please Select an Option", preferredStyle: .actionSheet)
+                
+                for ranking in rankings {
+                    alert.addAction(UIAlertAction(title: ranking.name, style: .default , handler:{ (UIAlertAction)in
+                        print("User click \(String(describing: UIAlertAction.title)) button")
+                    }))
+                }
+                
+                alert.addAction(UIAlertAction(title: "Dismiss", style: .cancel, handler:{ (UIAlertAction)in
+                    print("User click Dismiss button")
+                }))
+                
+                self.present(alert, animated: true, completion: nil)
             }
         }
     }

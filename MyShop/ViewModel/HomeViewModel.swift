@@ -21,6 +21,7 @@ protocol HomeViewModelProtocol {
     init(apiService: APIService)
     func fetchData()
     func getCategories(completionHandler: ([CategoriesEntity]?) -> Void)
+    func getRankings(completionHandler: ([RankingEntity]?) -> Void)
 }
 
 class HomeViewModel: HomeViewModelProtocol, RefreshHomeViewProtocol {
@@ -57,7 +58,7 @@ class HomeViewModel: HomeViewModelProtocol, RefreshHomeViewProtocol {
     }
     
     func getCategories(completionHandler: ([CategoriesEntity]?) -> Void) {
-        // Fetch the categories to check whether DB has been updated
+        // Fetch the categories
         if let categories = CoreDataManager.sharedInstance.fetchCategories(), categories.count > 0 {
             completionHandler(categories)
         } else {
@@ -67,5 +68,14 @@ class HomeViewModel: HomeViewModelProtocol, RefreshHomeViewProtocol {
     
     func refreshHomeView(forCategory: CategoriesEntity) {
         products = forCategory.products?.allObjects as? [ProductEntity]
+    }
+    
+    func getRankings(completionHandler: ([RankingEntity]?) -> Void) {
+        // Fetch the rankings
+        if let rankings = CoreDataManager.sharedInstance.fetchRankings(), rankings.count > 0 {
+            completionHandler(rankings)
+        } else {
+            completionHandler(nil)
+        }
     }
 }
