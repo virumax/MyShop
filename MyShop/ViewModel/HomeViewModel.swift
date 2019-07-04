@@ -22,6 +22,8 @@ protocol HomeViewModelProtocol {
     func fetchData()
     func getCategories(completionHandler: ([CategoriesEntity]?) -> Void)
     func getRankings(completionHandler: ([RankingEntity]?) -> Void)
+    func getProductsForRanking(name: String)
+    func getVariants(completionHandler: ([VariantEntity]?) -> Void)
 }
 
 class HomeViewModel: HomeViewModelProtocol, RefreshHomeViewProtocol {
@@ -77,5 +79,32 @@ class HomeViewModel: HomeViewModelProtocol, RefreshHomeViewProtocol {
         } else {
             completionHandler(nil)
         }
+    }
+    
+    func getProductsForRanking(name: String) {
+        // Fetch ranking by name
+        if let ranking = CoreDataManager.sharedInstance.fetchRanking(name) {
+            if let rankingProducts = ranking.products?.allObjects as? [RankingProductEntity] {
+                let productIds = rankingProducts.map {Int($0.id)}
+                if let products = CoreDataManager.sharedInstance.fetchProducts(forIds: productIds) {
+                    self.products = products
+                }
+            }
+        }
+    }
+    
+    func getVariants(completionHandler: ([VariantEntity]?) -> Void) {
+        var variants = [VariantEntity]()
+        
+        if let products = products {
+            for product in products {
+                if let productVariants = product.variants?.allObjects as? [VariantEntity] {
+                    for variant in productVariants {
+                        variants.append(variant)
+                    }
+                }
+            }
+        }
+        completionHandler(variants)
     }
 }

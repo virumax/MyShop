@@ -137,16 +137,12 @@ class CoreDataManager {
         return try? managedObjectContext?.fetch(fetchRequest) as? [ProductEntity]
     }
     
+    func fetchVariants() -> [VariantEntity]? {
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "VariantEntity")
+        return try? managedObjectContext?.fetch(fetchRequest) as? [VariantEntity]
+    }
+    
     func fetchedCategory(_ categoryId: Int) -> CategoriesEntity? {
-//        let widgetFetch = NSFetchRequest<NSFetchRequestResult>(entityName: "CategoriesEntity")
-//
-//        widgetFetch.fetchLimit = 1
-//        widgetFetch.predicate = NSPredicate(format: "SELF = %@", objectId)
-//
-//        let widgets = try! managedObjectContext?.fetch(widgetFetch)
-//
-//        let widget: Widget = widgets?.first as! Widget
-        
         let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "CategoriesEntity")
         fetchRequest.fetchLimit = 1
         fetchRequest.predicate = NSPredicate(format: "id = %d", categoryId)
@@ -155,5 +151,23 @@ class CoreDataManager {
         
         return categories?.first
     }
+    
+    func fetchRanking(_ rankingName: String) -> RankingEntity? {
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "RankingEntity")
+        fetchRequest.fetchLimit = 1
+        fetchRequest.predicate = NSPredicate(format: "name = %@", rankingName)
+        
+        let rankings = try? managedObjectContext?.fetch(fetchRequest) as? [RankingEntity]
+        
+        return rankings?.first
+    }
+    
+    func fetchProducts(forIds: [Int]) -> [ProductEntity]? {
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "ProductEntity")
+        fetchRequest.predicate = NSPredicate(format: "id IN %@", forIds)
+        
+        return try? managedObjectContext?.fetch(fetchRequest) as? [ProductEntity]
+    }
 }
+
 

@@ -15,7 +15,10 @@ class ViewController: UIViewController {
         HomeViewModel(apiService: APIService())
     }()
     @IBOutlet weak var collectionView: UICollectionView!
-    
+    var filterPickerView = UIPickerView()
+    var toolBar = UIToolbar()
+    var pickerData = [String]()
+        
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -42,6 +45,39 @@ class ViewController: UIViewController {
         }
     }
     
+    func addPickerView() {
+        // UIPickerView
+        filterPickerView = UIPickerView(frame:CGRect(x: 0, y: view.frame.size.height - 260, width: self.view.frame.size.width, height: 260))
+        filterPickerView.delegate = self
+        filterPickerView.dataSource = self
+        filterPickerView.backgroundColor = UIColor.white
+        view.addSubview(filterPickerView)
+        
+        // ToolBar
+        toolBar = UIToolbar.init(frame: CGRect.init(x: 0.0, y: UIScreen.main.bounds.size.height - 300, width: UIScreen.main.bounds.size.width, height: 40))
+        view.addSubview(toolBar)
+        toolBar.barStyle = .default
+        toolBar.sizeToFit()
+        
+        // Adding Button ToolBar
+        let doneButton = UIBarButtonItem(title: "Done", style: .plain, target: self, action: #selector(pickerViewDoneClick))
+        let spaceButton = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+        let cancelButton = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(pickerViewCancelClick))
+        toolBar.setItems([cancelButton, spaceButton, doneButton], animated: false)
+    }
+    
+    @objc func pickerViewDoneClick() {
+        filterPickerView.removeFromSuperview()
+        toolBar.removeFromSuperview()
+        pickerData.removeAll()
+    }
+    
+    @objc func pickerViewCancelClick() {
+        filterPickerView.removeFromSuperview()
+        toolBar.removeFromSuperview()
+        pickerData.removeAll()
+    }
+    
     @objc func showCategories() {
         viewModel.getCategories { (categories) in
             if let categories = categories {
@@ -58,13 +94,30 @@ class ViewController: UIViewController {
     @objc func showFilterMenu() {
         let alert = UIAlertController(title: "Variants", message: "Please Select an Option", preferredStyle: .actionSheet)
         
-        alert.addAction(UIAlertAction(title: "By Color", style: .default , handler:{ (UIAlertAction)in
-            print("User click \(String(describing: UIAlertAction.title)) button")
-            
+        alert.addAction(UIAlertAction(title: "By Color", style: .default , handler:{[weak self] (UIAlertAction)in
+            self?.viewModel.getVariants(completionHandler: { (variants) in
+                if let variants = variants {
+                    for variant in variants {
+                        if let color = variant.color, !(self?.pickerData.contains(color))! {
+                            self?.pickerData.append(color)
+                        }
+                    }
+                    self?.addPickerView()
+                }
+            })
         }))
         
-        alert.addAction(UIAlertAction(title: "By Size", style: .default , handler:{ (UIAlertAction)in
-            print("User click \(String(describing: UIAlertAction.title)) button")
+        alert.addAction(UIAlertAction(title: "By Size", style: .default , handler:{[weak self] (UIAlertAction)in
+            self?.viewModel.getVariants(completionHandler: { (variants) in
+                if let variants = variants {
+                    for variant in variants {
+                        if variant.size != 0, !(self?.pickerData.contains(String(variant.size)))! {
+                            self?.pickerData.append(String(variant.size))
+                        }
+                    }
+                    self?.addPickerView()
+                }
+            })
         }))
         
         alert.addAction(UIAlertAction(title: "Dismiss", style: .cancel, handler:{ (UIAlertAction)in
@@ -80,8 +133,8 @@ class ViewController: UIViewController {
                 let alert = UIAlertController(title: "Rankings", message: "Please Select an Option", preferredStyle: .actionSheet)
                 
                 for ranking in rankings {
-                    alert.addAction(UIAlertAction(title: ranking.name, style: .default , handler:{ (UIAlertAction)in
-                        print("User click \(String(describing: UIAlertAction.title)) button")
+                    alert.addAction(UIAlertAction(title: ranking.name, style: .default , handler:{[weak self] (UIAlertAction)in
+                        self?.viewModel.getProductsForRanking(name: UIAlertAction.title!)
                     }))
                 }
                 
@@ -99,10 +152,6 @@ extension ViewController: UICollectionViewDataSource, UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return viewModel.products?.count ?? 0
     }
-    
-//    func numberOfSections(in collectionView: UICollectionView) -> Int {
-//        return ((viewModel.products?.count ?? 0) > 0 ? 2 : 0)
-//    }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
@@ -141,5 +190,24 @@ extension ViewController: UICollectionViewDelegateFlowLayout {
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
         return UIEdgeInsets.init(top: 10, left: 10, bottom: 10, right: 10)
+    }
+}
+
+// Extension for pickerview delegate & datasource
+extension ViewController: UIPickerViewDataSource, UIPickerViewDelegate {
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 1
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        return pickerData.count
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        return pickerData[row]
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        print(pickerData[row])
     }
 }
