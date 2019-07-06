@@ -123,5 +123,52 @@
             </objects>
             <point key="canvasLocation" x="50.724637681159422" y="123.88392857142857"/>
         </scene>
+        <!--Side Menu Table View Controller-->
+        <scene sceneID="ut7-5A-Bnt">
+            <objects>
+                <tableViewController id="7DO-mG-hzb" customClass="SideMenuTableViewController" customModule="MyShop" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="xrw-Nr-SCT">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="menuCell" id="Yfx-jc-dcF">
+                                <rect key="frame" x="0.0" y="28" width="414" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Yfx-jc-dcF" id="D8T-Fb-ckb">
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="7DO-mG-hzb" id="q1M-lh-hUa"/>
+                            <outlet property="delegate" destination="7DO-mG-hzb" id="ZC3-p1-OF1"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" id="bIb-99-6rN"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="GdI-xv-cVy" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2652.1739130434785" y="123.88392857142857"/>
+        </scene>
+        <!--Side Menu Navigation Controller-->
+        <scene sceneID="gHu-rd-DBl">
+            <objects>
+                <navigationController storyboardIdentifier="menuView" automaticallyAdjustsScrollViewInsets="NO" id="0HV-Na-wGj" customClass="UISideMenuNavigationController" customModule="SideMenu" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="1nz-uz-iKc">
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="7DO-mG-hzb" kind="relationship" relationship="rootViewController" id="stR-fP-Mfm"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="yEz-OR-yEP" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1742.0289855072465" y="123.88392857142857"/>
+        </scene>
     </scenes>
 </document>

@@ -1,16 +1,20 @@
 PODS:
   - CollapsibleTableSectionViewController (2.0.1)
+  - SideMenu (5.0.3)
 
 DEPENDENCIES:
   - CollapsibleTableSectionViewController (~> 2.0.1)
+  - SideMenu
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
     - CollapsibleTableSectionViewController
+    - SideMenu
 
 SPEC CHECKSUMS:
   CollapsibleTableSectionViewController: 40d97d684d870044522a0dc29b128a6acaaa99df
+  SideMenu: 1dcaabce84538c53325c287f7fe62999379a641c
 
-PODFILE CHECKSUM: fc74e7e10afdac50a7373eb40c9df73b91eec0b7
+PODFILE CHECKSUM: df660b7900f225bcafa27992b9d0407a21f6afe0
 
 COCOAPODS: 1.5.3

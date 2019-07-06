@@ -10,6 +10,7 @@
 		2516064E22CB8A6F00C09DAC /* ProductCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2516064D22CB8A6F00C09DAC /* ProductCollectionViewCell.swift */; };
 		2516065022CBA70700C09DAC /* MenuTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2516064F22CBA70600C09DAC /* MenuTableViewController.swift */; };
 		2516065222CC2D7B00C09DAC /* CategoriesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2516065122CC2D7B00C09DAC /* CategoriesViewModel.swift */; };
+		2516065622D0861800C09DAC /* SideMenuTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2516065522D0861800C09DAC /* SideMenuTableViewController.swift */; };
 		256816F022CA417000893007 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 256816EF22CA417000893007 /* AppDelegate.swift */; };
 		256816F222CA417000893007 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 256816F122CA417000893007 /* ViewController.swift */; };
 		256816F522CA417000893007 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 256816F322CA417000893007 /* Main.storyboard */; };
@@ -28,6 +29,7 @@
 		2516064D22CB8A6F00C09DAC /* ProductCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductCollectionViewCell.swift; sourceTree = "<group>"; };
 		2516064F22CBA70600C09DAC /* MenuTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuTableViewController.swift; sourceTree = "<group>"; };
 		2516065122CC2D7B00C09DAC /* CategoriesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesViewModel.swift; sourceTree = "<group>"; };
+		2516065522D0861800C09DAC /* SideMenuTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuTableViewController.swift; sourceTree = "<group>"; };
 		256816EC22CA417000893007 /* MyShop.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyShop.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		256816EF22CA417000893007 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		256816F122CA417000893007 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -74,6 +76,7 @@
 				256816F122CA417000893007 /* ViewController.swift */,
 				2516064F22CBA70600C09DAC /* MenuTableViewController.swift */,
 				2516064D22CB8A6F00C09DAC /* ProductCollectionViewCell.swift */,
+				2516065522D0861800C09DAC /* SideMenuTableViewController.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -296,12 +299,14 @@
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-MyShop/Pods-MyShop-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/CollapsibleTableSectionViewController/CollapsibleTableSectionViewController.framework",
+				"${BUILT_PRODUCTS_DIR}/SideMenu/SideMenu.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
 			);
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CollapsibleTableSectionViewController.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SideMenu.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -347,6 +352,7 @@
 				256816F022CA417000893007 /* AppDelegate.swift in Sources */,
 				2568175122CAD65C00893007 /* APIService.swift in Sources */,
 				2568171F22CA4AFC00893007 /* CoreDataManager.swift in Sources */,
+				2516065622D0861800C09DAC /* SideMenuTableViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -8,4 +8,5 @@ target 'MyShop' do
   # Pods for MyShop
 
   pod 'CollapsibleTableSectionViewController', '~> 2.0.1'
+  pod 'SideMenu'
 end

@@ -7,8 +7,19 @@
 //
 
 import UIKit
+import SideMenu
 
-class ViewController: UIViewController {
+protocol SideMenuProtocol: class {
+    func sideMenuSelected(item: MenuItem?)
+}
+
+enum MenuItem: String {
+    case categories = "Search by Categories"
+    case filter = "Apply Filter"
+    case rankings = "Search by Rankings"
+}
+
+class ViewController: UIViewController, SideMenuProtocol {
 
     // View model instance
     lazy var viewModel: HomeViewModelProtocol = {
@@ -51,7 +62,12 @@ class ViewController: UIViewController {
         let filterButton = UIBarButtonItem(title: "Filter", style: .done, target: self, action: #selector(showFilterMenu))
         let rankingButton = UIBarButtonItem(title: "Rankings", style: .done, target: self, action: #selector(showRankingMenu))
         self.navigationItem.rightBarButtonItems = [rankingButton, filterButton]
-        self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Categories", style: .done, target: self, action: #selector(showCategories))
+        
+        let menuButton = UIButton(frame: CGRect(x: 0, y: 0, width: 30, height: 50))
+        menuButton.setImage(UIImage(named: "menu"), for: .normal)
+        menuButton.imageEdgeInsets = UIEdgeInsets(top: 6, left: 8, bottom: 6, right: 8);
+        menuButton.addTarget(self, action: #selector(showSideMenu), for: .touchUpInside)
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(customView: menuButton)
     }
     
     func addPickerView() {
@@ -83,6 +99,23 @@ class ViewController: UIViewController {
     }
     
     // MARK: Action Methods
+    @objc func showSideMenu() {
+        let menuLeftNavigationController = storyboard!.instantiateViewController(withIdentifier: "menuView") as! UISideMenuNavigationController
+        let sideMenuTableViewController = menuLeftNavigationController.topViewController as! SideMenuTableViewController
+        sideMenuTableViewController.delegate = self
+        SideMenuManager.default.menuLeftNavigationController = menuLeftNavigationController
+        
+        // (Optional) Enable gestures. The left and/or right menus must be set up above for these to work.
+        // Note that these continue to work on the Navigation Controller independent of the view controller it displays!
+        SideMenuManager.default.menuAddPanGestureToPresent(toView: self.navigationController!.navigationBar)
+        SideMenuManager.default.menuAddScreenEdgePanGesturesToPresent(toView: self.navigationController!.view, forMenu: .left)
+        
+        // (Optional) Prevent status bar area from turning black when menu appears:
+        SideMenuManager.default.menuFadeStatusBar = false
+        
+        present(SideMenuManager.default.menuLeftNavigationController!, animated: true, completion: nil)
+    }
+    
     @objc func showCategories() {
         viewModel.getCategories { (categories) in
             if let categories = categories {
@@ -198,6 +231,17 @@ class ViewController: UIViewController {
         filterPickerView.removeFromSuperview()
         toolBar.removeFromSuperview()
         pickerData.removeAll()
+    }
+    
+    //MARK: SideMenu delegate methods
+    func sideMenuSelected(item: MenuItem?) {
+        if let item = item {
+            switch item {
+            case .categories: showCategories()
+            case .filter: showFilterMenu()
+            case .rankings: showRankingMenu()
+            }
+        }
     }
 }
 
