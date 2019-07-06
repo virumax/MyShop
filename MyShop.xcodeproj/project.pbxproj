@@ -11,6 +11,7 @@
 		2516065022CBA70700C09DAC /* MenuTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2516064F22CBA70600C09DAC /* MenuTableViewController.swift */; };
 		2516065222CC2D7B00C09DAC /* CategoriesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2516065122CC2D7B00C09DAC /* CategoriesViewModel.swift */; };
 		2516065622D0861800C09DAC /* SideMenuTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2516065522D0861800C09DAC /* SideMenuTableViewController.swift */; };
+		2516065C22D0AC1B00C09DAC /* NSManagedObject+Clone.m in Sources */ = {isa = PBXBuildFile; fileRef = 2516065B22D0AC1B00C09DAC /* NSManagedObject+Clone.m */; };
 		256816F022CA417000893007 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 256816EF22CA417000893007 /* AppDelegate.swift */; };
 		256816F222CA417000893007 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 256816F122CA417000893007 /* ViewController.swift */; };
 		256816F522CA417000893007 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 256816F322CA417000893007 /* Main.storyboard */; };
@@ -30,6 +31,9 @@
 		2516064F22CBA70600C09DAC /* MenuTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuTableViewController.swift; sourceTree = "<group>"; };
 		2516065122CC2D7B00C09DAC /* CategoriesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesViewModel.swift; sourceTree = "<group>"; };
 		2516065522D0861800C09DAC /* SideMenuTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuTableViewController.swift; sourceTree = "<group>"; };
+		2516065922D0AC1A00C09DAC /* MyShop-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MyShop-Bridging-Header.h"; sourceTree = "<group>"; };
+		2516065A22D0AC1B00C09DAC /* NSManagedObject+Clone.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSManagedObject+Clone.h"; sourceTree = "<group>"; };
+		2516065B22D0AC1B00C09DAC /* NSManagedObject+Clone.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSManagedObject+Clone.m"; sourceTree = "<group>"; };
 		256816EC22CA417000893007 /* MyShop.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyShop.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		256816EF22CA417000893007 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		256816F122CA417000893007 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -174,6 +178,9 @@
 			children = (
 				2568170622CA48C000893007 /* CoreData */,
 				2568174E22CAD55E00893007 /* Services */,
+				2516065A22D0AC1B00C09DAC /* NSManagedObject+Clone.h */,
+				2516065B22D0AC1B00C09DAC /* NSManagedObject+Clone.m */,
+				2516065922D0AC1A00C09DAC /* MyShop-Bridging-Header.h */,
 			);
 			path = Global;
 			sourceTree = "<group>";
@@ -254,6 +261,7 @@
 				TargetAttributes = {
 					256816EB22CA417000893007 = {
 						CreatedOnToolsVersion = 10.2.1;
+						LastSwiftMigration = 1020;
 					};
 				};
 			};
@@ -349,6 +357,7 @@
 				2568175422CADC7800893007 /* HomeViewModel.swift in Sources */,
 				256816F222CA417000893007 /* ViewController.swift in Sources */,
 				2516065022CBA70700C09DAC /* MenuTableViewController.swift in Sources */,
+				2516065C22D0AC1B00C09DAC /* NSManagedObject+Clone.m in Sources */,
 				256816F022CA417000893007 /* AppDelegate.swift in Sources */,
 				2568175122CAD65C00893007 /* APIService.swift in Sources */,
 				2568171F22CA4AFC00893007 /* CoreDataManager.swift in Sources */,
@@ -499,6 +508,7 @@
 			baseConfigurationReference = 262AD2B332DA2E77ED4176D1 /* Pods-MyShop.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = MyShop/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -507,6 +517,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.virendra.MyShop;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "MyShop/Global/MyShop-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -517,6 +529,7 @@
 			baseConfigurationReference = 7AE5E4B9AFDBDBC566B55C64 /* Pods-MyShop.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = MyShop/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -525,6 +538,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.virendra.MyShop;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "MyShop/Global/MyShop-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

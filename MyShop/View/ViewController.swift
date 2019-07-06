@@ -28,6 +28,7 @@ class ViewController: UIViewController, SideMenuProtocol {
     var filterPickerView = UIPickerView()
     var toolBar = UIToolbar()
     var pickerData = [String]()
+    lazy var searchBar = UISearchBar(frame: CGRect.zero)
     
     // IB Properties
     @IBOutlet weak var collectionView: UICollectionView!
@@ -58,16 +59,17 @@ class ViewController: UIViewController, SideMenuProtocol {
         // Set title
         self.navigationItem.title = viewModel.titleText
         
-        // Set right menu
-        let filterButton = UIBarButtonItem(title: "Filter", style: .done, target: self, action: #selector(showFilterMenu))
-        let rankingButton = UIBarButtonItem(title: "Rankings", style: .done, target: self, action: #selector(showRankingMenu))
-        self.navigationItem.rightBarButtonItems = [rankingButton, filterButton]
+        let searchButton = UIButton(frame: CGRect(x: 0, y: 0, width: 30, height: 50))
+        searchButton.setImage(UIImage(named: "search"), for: .normal)
+        searchButton.imageEdgeInsets = UIEdgeInsets(top: 6, left: 8, bottom: 6, right: 8);
+        searchButton.addTarget(self, action: #selector(searchProducts), for: .touchUpInside)
+        navigationItem.rightBarButtonItems = [UIBarButtonItem(customView: searchButton)]
         
         let menuButton = UIButton(frame: CGRect(x: 0, y: 0, width: 30, height: 50))
         menuButton.setImage(UIImage(named: "menu"), for: .normal)
         menuButton.imageEdgeInsets = UIEdgeInsets(top: 6, left: 8, bottom: 6, right: 8);
         menuButton.addTarget(self, action: #selector(showSideMenu), for: .touchUpInside)
-        self.navigationItem.leftBarButtonItem = UIBarButtonItem(customView: menuButton)
+        navigationItem.leftBarButtonItem = UIBarButtonItem(customView: menuButton)
     }
     
     func addPickerView() {
@@ -195,6 +197,25 @@ class ViewController: UIViewController, SideMenuProtocol {
         }
     }
     
+    @objc func searchProducts() {
+        searchBar.placeholder = "Enter product name"
+        searchBar.delegate = self
+        UIView.animate(withDuration: 2) {[weak self] in
+            self?.navigationItem.titleView = self?.searchBar
+            
+            let cancelButton = UIBarButtonItem(title: "Cancel", style: .done, target: self, action: #selector(self?.cancelSearch))
+            self?.navigationItem.rightBarButtonItems = [cancelButton]
+            self?.navigationItem.leftBarButtonItem = nil
+        }
+        viewModel.backupPoductsList()
+    }
+    
+    @objc func cancelSearch() {
+        navigationItem.titleView = nil
+        setupNavigationBar()
+        viewModel.cancelSearch()
+    }
+    
     // MARK: PickerView action methods
     @objc func pickerViewDoneClick() {
         if viewModel.selectedPickerRow > 0 {
@@ -307,5 +328,16 @@ extension ViewController: UIPickerViewDataSource, UIPickerViewDelegate {
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         viewModel.selectedPickerRow = row
+    }
+}
+
+//MARK: UISearchBar delegate
+extension ViewController: UISearchBarDelegate {
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        viewModel.filterBySearchTerm(searchText: searchText)
+    }
+    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        viewModel.filterBySearchTerm(searchText: searchBar.text)
     }
 }

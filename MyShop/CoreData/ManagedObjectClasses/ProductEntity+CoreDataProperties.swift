@@ -23,7 +23,6 @@ extension ProductEntity {
     @NSManaged public var tax: TaxEntity?
     @NSManaged public var variants: NSSet?
     @NSManaged public var category: CategoriesEntity?
-
 }
 
 // MARK: Generated accessors for variants

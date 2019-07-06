@@ -7,7 +7,39 @@
 //
 
 import Foundation
+import CoreData
 
+//class ManagedObjectCloner: NSObject {
+//    
+//    static func cloneObject(source :NSManagedObject, context :NSManagedObjectContext) -> NSManagedObject{
+//        let entityName = source.entity.name
+//        let cloned = NSEntityDescription.insertNewObject(forEntityName: entityName!, into: context)
+//        
+//        let attributes = NSEntityDescription.entity(forEntityName: entityName!, in: context)?.attributesByName
+//        
+//        for (key,_) in attributes! {
+//            cloned.setValue(source.value(forKey: key), forKey: key)
+//        }
+//        
+//        let relationships = NSEntityDescription.entity(forEntityName: entityName!, in: context)?.relationshipsByName
+//        for (key,_) in relationships! {
+//            let sourceSet = source.mutableSetValue(forKey: key)
+//            let clonedSet = cloned.mutableSetValue(forKey: key)
+//            let e = sourceSet.objectEnumerator()
+//            
+//            var relatedObj = e.nextObject() as? NSManagedObject
+//            
+//            while ((relatedObj) != nil) {
+//                let clonedRelatedObject = ManagedObjectCloner.cloneObject(source: relatedObj!, context: context)
+//                clonedSet.add(clonedRelatedObject)
+//                relatedObj = e.nextObject() as? NSManagedObject
+//            }
+//        }
+//        
+//        return cloned
+//    }
+//    
+//}
 protocol RefreshHomeViewProtocol: class {
     func refreshHomeView(forCategory: CategoriesEntity)
 }
@@ -28,6 +60,9 @@ protocol HomeViewModelProtocol {
     func getVariants(completionHandler: ([VariantEntity]?) -> Void)
     func filterProducts()
     func clearFilters()
+    func filterBySearchTerm(searchText: String?)
+    func cancelSearch()
+    func backupPoductsList()
 }
 
 enum FilterType: String {
@@ -43,7 +78,7 @@ enum FilterType: String {
 }
 
 class HomeViewModel: HomeViewModelProtocol, RefreshHomeViewProtocol {
-    var filteredProducts: [ProductEntity]?
+    var productsListBackup = [ProductEntity]()
     var categories: [CategoriesEntity]?
     let titleText = "MyShop"
     var apiService: APIService
@@ -160,6 +195,34 @@ class HomeViewModel: HomeViewModelProtocol, RefreshHomeViewProtocol {
         }
         
         products = filteredProducts
+    }
+    
+    func backupPoductsList() {
+        if let products = products {
+            for product in products {
+                if let newProduct = product.clone() as? ProductEntity {
+                    productsListBackup.append(newProduct)
+                }
+            }
+        }
+    }
+    
+    func filterBySearchTerm(searchText: String?) {
+        if let searchText = searchText, searchText.count > 0 {
+            products = productsListBackup.filter{ $0.name?.contains(searchText) ?? false}
+        } else {
+            products = productsListBackup
+        }
+    }
+    
+    func cancelSearch() {
+        products?.removeAll()
+        for product in productsListBackup {
+            if let newProduct = product.clone() as? ProductEntity {
+                products?.append(newProduct)
+            }
+        }
+        productsListBackup.removeAll()
     }
     
     func clearFilters() {
