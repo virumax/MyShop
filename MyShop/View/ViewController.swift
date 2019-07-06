@@ -14,10 +14,12 @@ class ViewController: UIViewController {
     lazy var viewModel: HomeViewModelProtocol = {
         HomeViewModel(apiService: APIService())
     }()
-    @IBOutlet weak var collectionView: UICollectionView!
     var filterPickerView = UIPickerView()
     var toolBar = UIToolbar()
     var pickerData = [String]()
+    
+    // IB Properties
+    @IBOutlet weak var collectionView: UICollectionView!
         
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,15 +29,11 @@ class ViewController: UIViewController {
         // Fetch data from DB
         viewModel.fetchData()
         
-        // Set title
-        self.navigationItem.title = viewModel.titleText
-        
-        let filterButton = UIBarButtonItem(title: "Filter", style: .done, target: self, action: #selector(showFilterMenu))
-        let rankingButton = UIBarButtonItem(title: "Rankings", style: .done, target: self, action: #selector(showRankingMenu))
-        self.navigationItem.rightBarButtonItems = [rankingButton, filterButton]
-        self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Categories", style: .done, target: self, action: #selector(showCategories))
+        // Setup navigation bar
+        setupNavigationBar()
     }
     
+    // MARK: UI Methods
     func initViewModel() {
         // Whenever products array updates reload the collection view
         viewModel.productsDidChange = { [unowned self] viewModel in
@@ -43,6 +41,17 @@ class ViewController: UIViewController {
                 self.collectionView.reloadData()
             }
         }
+    }
+    
+    func setupNavigationBar() {
+        // Set title
+        self.navigationItem.title = viewModel.titleText
+        
+        // Set right menu
+        let filterButton = UIBarButtonItem(title: "Filter", style: .done, target: self, action: #selector(showFilterMenu))
+        let rankingButton = UIBarButtonItem(title: "Rankings", style: .done, target: self, action: #selector(showRankingMenu))
+        self.navigationItem.rightBarButtonItems = [rankingButton, filterButton]
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Categories", style: .done, target: self, action: #selector(showCategories))
     }
     
     func addPickerView() {
@@ -66,18 +75,14 @@ class ViewController: UIViewController {
         toolBar.setItems([cancelButton, spaceButton, doneButton], animated: false)
     }
     
-    @objc func pickerViewDoneClick() {
-        filterPickerView.removeFromSuperview()
-        toolBar.removeFromSuperview()
-        pickerData.removeAll()
+    func showAlert(withTitle: String?, andMessage: String?) {
+        let alert = UIAlertController(title: withTitle, message: andMessage, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
+        
+        self.present(alert, animated: true, completion: nil)
     }
     
-    @objc func pickerViewCancelClick() {
-        filterPickerView.removeFromSuperview()
-        toolBar.removeFromSuperview()
-        pickerData.removeAll()
-    }
-    
+    // MARK: Action Methods
     @objc func showCategories() {
         viewModel.getCategories { (categories) in
             if let categories = categories {
@@ -96,26 +101,36 @@ class ViewController: UIViewController {
         
         alert.addAction(UIAlertAction(title: "By Color", style: .default , handler:{[weak self] (UIAlertAction)in
             self?.viewModel.getVariants(completionHandler: { (variants) in
-                if let variants = variants {
+                if let variants = variants, variants.count > 0 {
                     for variant in variants {
                         if let color = variant.color, !(self?.pickerData.contains(color))! {
                             self?.pickerData.append(color)
                         }
                     }
-                    self?.addPickerView()
+                    if let count = self?.pickerData.count, count > 0 {
+                        self?.addPickerView()
+                    } else {
+                        self?.showAlert(withTitle: nil, andMessage: "Color filter can't be applied to these products.")
+                    }
+                    self?.filterPickerView.tag = FilterType.color.getTag()
                 }
             })
         }))
         
         alert.addAction(UIAlertAction(title: "By Size", style: .default , handler:{[weak self] (UIAlertAction)in
             self?.viewModel.getVariants(completionHandler: { (variants) in
-                if let variants = variants {
+                if let variants = variants, variants.count > 0 {
                     for variant in variants {
                         if variant.size != 0, !(self?.pickerData.contains(String(variant.size)))! {
                             self?.pickerData.append(String(variant.size))
                         }
                     }
-                    self?.addPickerView()
+                    if let count = self?.pickerData.count, count > 0 {
+                        self?.addPickerView()
+                    } else {
+                        self?.showAlert(withTitle: nil, andMessage: "Size filter can't be applied to these products.")
+                    }
+                    self?.filterPickerView.tag = FilterType.size.getTag()
                 }
             })
         }))
@@ -146,8 +161,47 @@ class ViewController: UIViewController {
             }
         }
     }
+    
+    // MARK: PickerView action methods
+    @objc func pickerViewDoneClick() {
+        if viewModel.selectedPickerRow > 0 {
+            if filterPickerView.tag == FilterType.color.getTag() {
+                var colorFilters = viewModel.currentFilters[.color]
+                if colorFilters == nil {
+                    colorFilters = [String]()
+                }
+                if !colorFilters!.contains(pickerData[viewModel.selectedPickerRow]) {
+                    colorFilters?.append(pickerData[viewModel.selectedPickerRow])
+                }
+                viewModel.currentFilters[.color] = colorFilters
+            } else {
+                var sizeFilters = viewModel.currentFilters[.size]
+                if sizeFilters == nil {
+                    sizeFilters = [String]()
+                }
+                if !sizeFilters!.contains(pickerData[viewModel.selectedPickerRow]) {
+                    sizeFilters?.append(pickerData[viewModel.selectedPickerRow])
+                }
+                sizeFilters?.append(pickerData[viewModel.selectedPickerRow])
+                viewModel.currentFilters[.size] = sizeFilters
+            }
+            viewModel.filterProducts()
+        }
+        viewModel.selectedPickerRow = -1
+        filterPickerView.removeFromSuperview()
+        toolBar.removeFromSuperview()
+        pickerData.removeAll()
+    }
+    
+    @objc func pickerViewCancelClick() {
+        viewModel.selectedPickerRow = -1
+        filterPickerView.removeFromSuperview()
+        toolBar.removeFromSuperview()
+        pickerData.removeAll()
+    }
 }
 
+// MARK: UICollectionView Delegate and DataSource
 extension ViewController: UICollectionViewDataSource, UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return viewModel.products?.count ?? 0
@@ -180,7 +234,7 @@ extension ViewController: UICollectionViewDataSource, UICollectionViewDelegate {
     }
 }
 
-// Extenstion to determine the size of collection view cell
+//MARK: Determine the size of collection view cell
 extension ViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let width = (self.view.frame.size.width - 15 * 2) / 2 //some width
@@ -193,7 +247,7 @@ extension ViewController: UICollectionViewDelegateFlowLayout {
     }
 }
 
-// Extension for pickerview delegate & datasource
+//MARK: pickerview delegate & datasource
 extension ViewController: UIPickerViewDataSource, UIPickerViewDelegate {
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 1
@@ -208,6 +262,6 @@ extension ViewController: UIPickerViewDataSource, UIPickerViewDelegate {
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        print(pickerData[row])
+        viewModel.selectedPickerRow = row
     }
 }

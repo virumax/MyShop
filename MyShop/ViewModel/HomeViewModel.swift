@@ -17,6 +17,8 @@ protocol HomeViewModelProtocol {
     var products: [ProductEntity]? { get }
     var categories: [CategoriesEntity]? { get }
     var productsDidChange: ((HomeViewModelProtocol) -> ())? { get set } // function to call when greeting did change
+    var currentFilters: [FilterType: [String]] { get set }
+    var selectedPickerRow: Int { get set }
     
     init(apiService: APIService)
     func fetchData()
@@ -24,18 +26,35 @@ protocol HomeViewModelProtocol {
     func getRankings(completionHandler: ([RankingEntity]?) -> Void)
     func getProductsForRanking(name: String)
     func getVariants(completionHandler: ([VariantEntity]?) -> Void)
+    func filterProducts()
+    func clearFilters()
+}
+
+enum FilterType: String {
+    case color
+    case size
+    
+    func getTag() -> Int {
+        switch self {
+        case .color: return 1
+        case .size: return 2
+        }
+    }
 }
 
 class HomeViewModel: HomeViewModelProtocol, RefreshHomeViewProtocol {
+    var filteredProducts: [ProductEntity]?
     var categories: [CategoriesEntity]?
     let titleText = "MyShop"
     var apiService: APIService
     var productsDidChange: ((HomeViewModelProtocol) -> ())?
+    var currentFilters = [FilterType: [String]]()
     var products: [ProductEntity]? {
         didSet {
             self.productsDidChange?(self)
         }
     }
+    var selectedPickerRow: Int = -1
     
     required init(apiService: APIService) {
         self.apiService = apiService
@@ -106,5 +125,49 @@ class HomeViewModel: HomeViewModelProtocol, RefreshHomeViewProtocol {
             }
         }
         completionHandler(variants)
+    }
+    
+    // Filter the products according to color and size variant
+    func filterProducts() {
+        var filteredProducts = [ProductEntity]()
+        if let products = products {
+            for product in products {
+                if let productVariants = product.variants?.allObjects as? [VariantEntity] {
+                    let array = productVariants.filter {[weak self] (product) -> Bool in
+                        //var productMatches = true
+                        if let colorFilters = self?.currentFilters[.color], colorFilters.count > 0 {
+                            let array = colorFilters.filter {$0 == product.color}
+                            if array.count == 0 {
+                                return false
+                            }
+                        }
+                        
+                        if let sizeFilters = self?.currentFilters[.size], sizeFilters.count > 0 {
+                            let array = sizeFilters.filter {$0 == String(product.size)}
+                            if array.count == 0 {
+                                return false
+                            }
+                        }
+                        return true
+                    }
+                    
+                    if array.count > 0 {
+                        filteredProducts.append(product)
+                        continue
+                    }
+                }
+            }
+        }
+        
+        products = filteredProducts
+    }
+    
+    func clearFilters() {
+        currentFilters.removeAll()
+        // Fetch the categories to check whether DB has been updated
+        if let products = CoreDataManager.sharedInstance.fetchProducts(), products.count > 0 {
+            // Records are present already
+            self.products = products
+        }
     }
 }
