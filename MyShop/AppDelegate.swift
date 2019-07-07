@@ -14,14 +14,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
 
-
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
         // Setting the managed object context to the CDManager.
         // For this we use the persistent container definied on the AppDelegate.swift class,
         // and from it get the reference to the Managed Object Context
         CoreDataManager.sharedInstance.managedObjectContext = persistentContainer.viewContext
-        
+                
         return true
     }
 
@@ -49,7 +48,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Saves changes in the application's managed object context before the application terminates.
         CoreDataManager.sharedInstance.saveContext()
     }
-
+    
     // MARK: - Core Data stack
 
     lazy var persistentContainer: NSPersistentContainer = {

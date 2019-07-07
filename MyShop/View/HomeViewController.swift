@@ -8,6 +8,7 @@
 
 import UIKit
 import SideMenu
+import MBProgressHUD
 
 protocol SideMenuProtocol: class {
     func sideMenuSelected(item: MenuItem?)
@@ -32,6 +33,7 @@ class HomeViewController: UIViewController, SideMenuProtocol {
     
     // IB Properties
     @IBOutlet weak var collectionView: UICollectionView!
+    @IBOutlet weak var backgroundMessage: UILabel!
         
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -39,7 +41,7 @@ class HomeViewController: UIViewController, SideMenuProtocol {
         initViewModel()
         
         // Fetch data from DB
-        viewModel.fetchData()
+        reloadData()
         
         // Setup navigation bar
         setupNavigationBar()
@@ -51,6 +53,22 @@ class HomeViewController: UIViewController, SideMenuProtocol {
         viewModel.productsDidChange = { [unowned self] viewModel in
             DispatchQueue.main.async {
                 self.collectionView.reloadData()
+                if viewModel.products?.count == 0 {
+                    self.backgroundMessage.text = "Sorry, no more products to display"
+                } else {
+                    self.backgroundMessage.text = ""
+                }
+                
+                MBProgressHUD.hide(for: self.view, animated: true)
+            }
+        }
+        
+        // Whenever internet connetion changes
+        viewModel.alertMessageDidChange =  { [unowned self] viewModel in
+            DispatchQueue.main.async {
+                self.showAlert(withTitle: "Error", andMessage: viewModel.alertMessage)
+                self.backgroundMessage.text = viewModel.alertMessage
+                MBProgressHUD.hide(for: self.view, animated: true)
             }
         }
     }
@@ -59,11 +77,16 @@ class HomeViewController: UIViewController, SideMenuProtocol {
         // Set title
         self.navigationItem.title = viewModel.titleText
         
+        let reloadButton = UIButton(frame: CGRect(x: 0, y: 0, width: 30, height: 50))
+        reloadButton.setImage(UIImage(named: "reload"), for: .normal)
+        reloadButton.imageEdgeInsets = UIEdgeInsets(top: 6, left: 8, bottom: 6, right: 8);
+        reloadButton.addTarget(self, action: #selector(reloadData), for: .touchUpInside)
+        
         let searchButton = UIButton(frame: CGRect(x: 0, y: 0, width: 30, height: 50))
         searchButton.setImage(UIImage(named: "search"), for: .normal)
         searchButton.imageEdgeInsets = UIEdgeInsets(top: 6, left: 8, bottom: 6, right: 8);
         searchButton.addTarget(self, action: #selector(searchProducts), for: .touchUpInside)
-        navigationItem.rightBarButtonItems = [UIBarButtonItem(customView: searchButton)]
+        navigationItem.rightBarButtonItems = [UIBarButtonItem(customView: searchButton), UIBarButtonItem(customView: reloadButton)]
         
         let menuButton = UIButton(frame: CGRect(x: 0, y: 0, width: 30, height: 50))
         menuButton.setImage(UIImage(named: "menu"), for: .normal)
@@ -214,6 +237,11 @@ class HomeViewController: UIViewController, SideMenuProtocol {
         navigationItem.titleView = nil
         setupNavigationBar()
         viewModel.cancelSearch()
+    }
+    
+    @objc func reloadData() {
+        MBProgressHUD.showAdded(to: view, animated: true)
+        viewModel.fetchData()
     }
     
     // MARK: PickerView action methods

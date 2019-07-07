@@ -86,18 +86,29 @@
                                     <outlet property="delegate" destination="BYZ-38-t0r" id="KmJ-3a-Erw"/>
                                 </connections>
                             </collectionView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6vN-UB-887">
+                                <rect key="frame" x="20" y="438" width="374" height="20.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="bCI-5b-xPD" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="1qJ-fp-ArO"/>
                             <constraint firstItem="bCI-5b-xPD" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="EFw-OD-wHz"/>
+                            <constraint firstItem="6vN-UB-887" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="EMf-Ib-kTA"/>
+                            <constraint firstItem="6vN-UB-887" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="Hbq-xc-0Bd"/>
+                            <constraint firstItem="6vN-UB-887" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="bpw-lL-tgt"/>
                             <constraint firstItem="bCI-5b-xPD" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="d8w-Is-MT2"/>
                             <constraint firstItem="bCI-5b-xPD" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="feb-7Z-2c5"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="6vN-UB-887" secondAttribute="trailing" constant="20" id="iT0-Gc-gac"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <navigationItem key="navigationItem" id="Cbb-mo-CKu"/>
                     <connections>
+                        <outlet property="backgroundMessage" destination="6vN-UB-887" id="seH-gG-EE3"/>
                         <outlet property="collectionView" destination="bCI-5b-xPD" id="HRB-wn-ety"/>
                     </connections>
                 </viewController>

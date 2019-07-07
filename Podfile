@@ -9,4 +9,6 @@ target 'MyShop' do
 
   pod 'CollapsibleTableSectionViewController', '~> 2.0.1'
   pod 'SideMenu'
+  pod 'Alamofire', '~> 5.0.0-beta.5'
+  pod 'MBProgressHUD', '~> 1.1.0'
 end

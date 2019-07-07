@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import Alamofire
 
 protocol RefreshHomeViewProtocol: class {
     func refreshHomeView(forCategory: CategoriesEntity)
@@ -19,6 +20,8 @@ protocol HomeViewModelProtocol {
     var productsDidChange: ((HomeViewModelProtocol) -> ())? { get set } // function to call when products did change
     var currentFilters: [FilterType: [String]] { get set }
     var selectedPickerRow: Int { get set }
+    var alertMessage: String? { get }
+    var alertMessageDidChange: ((HomeViewModelProtocol) -> ())? { get set }
     
     init(apiService: APIService)
     func fetchData()
@@ -58,9 +61,17 @@ class HomeViewModel: HomeViewModelProtocol, RefreshHomeViewProtocol {
         }
     }
     var selectedPickerRow: Int = -1
+    private var reachabilityManager = NetworkReachabilityManager()
+    var alertMessageDidChange: ((HomeViewModelProtocol) -> ())?
+    var alertMessage: String? {
+        didSet {
+            self.alertMessageDidChange?(self)
+        }
+    }
     
     required init(apiService: APIService) {
         self.apiService = apiService
+        startListeningNetworkStatus()
     }
     
     func fetchData() {
@@ -69,14 +80,18 @@ class HomeViewModel: HomeViewModelProtocol, RefreshHomeViewProtocol {
             // Records are present already
             self.products = products
         } else {
-            self.apiService.fetchData { [weak self](baseModel, error) in
-                if let baseModel = baseModel {
-                    CoreDataManager.sharedInstance.insertData(baseModel)
-                    if let products = CoreDataManager.sharedInstance.fetchProducts(), products.count > 0 {
-                        // Records are present already
-                        self?.products = products
+            if NetworkReachabilityManager()!.isReachable {
+                self.apiService.fetchData { [weak self](baseModel, error) in
+                    if let baseModel = baseModel {
+                        CoreDataManager.sharedInstance.insertData(baseModel)
+                        if let products = CoreDataManager.sharedInstance.fetchProducts(), products.count > 0 {
+                            // Records are present already
+                            self?.products = products
+                        }
                     }
                 }
+            } else {
+                alertMessage = "Internet connection not available. Please connect to network and try reloading."
             }
         }
     }
@@ -199,6 +214,20 @@ class HomeViewModel: HomeViewModelProtocol, RefreshHomeViewProtocol {
         if let products = CoreDataManager.sharedInstance.fetchProducts(), products.count > 0 {
             // Records are present already
             self.products = products
+        }
+    }
+    
+    // MARK: Private methods
+    // Starting to detect network status
+    private func startListeningNetworkStatus() {
+        self.reachabilityManager?.startListening()
+        self.reachabilityManager?.listener = { [unowned self] status in
+            switch status {
+            case .reachable(.ethernetOrWiFi): // The network is reachable.
+               self.fetchData()
+            default:
+                break
+            }
         }
     }
 }
