@@ -15,4 +15,10 @@ class ProductCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var descriptionLabel: UILabel!
     @IBOutlet weak var productImageHeight: NSLayoutConstraint!
     
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        if UIScreen.main.nativeBounds.size.height <= 1136 {
+            productImageHeight.constant = 135
+        }
+    }
 }

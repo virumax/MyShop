@@ -19,6 +19,7 @@ class ProductDetailViewController: UIViewController {
     @IBOutlet weak var size: UILabel!
     @IBOutlet weak var changeColor: UIButton!
     @IBOutlet weak var changeSize: UIButton!
+    @IBOutlet weak var heightConstraint: NSLayoutConstraint!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,6 +28,11 @@ class ProductDetailViewController: UIViewController {
         
         // Display product details
         showDetails()
+        
+        // Reduce the height of image view for iPhone 5s
+        if UIScreen.main.nativeBounds.size.height <= 1136 {
+            heightConstraint.constant = 202
+        }
     }
     
     func setupNavigationBar() {

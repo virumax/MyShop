@@ -223,12 +223,13 @@ class HomeViewController: UIViewController, SideMenuProtocol {
     @objc func searchProducts() {
         searchBar.placeholder = MyShop_Strings.NAME_PLACHOLDER
         searchBar.delegate = self
-        UIView.animate(withDuration: 2) {[weak self] in
+        UIView.animate(withDuration: 0.3) {[weak self] in
             self?.navigationItem.titleView = self?.searchBar
             
             let cancelButton = UIBarButtonItem(title: MyShop_Strings.CANCEL, style: .done, target: self, action: #selector(self?.cancelSearch))
             self?.navigationItem.rightBarButtonItems = [cancelButton]
             self?.navigationItem.leftBarButtonItem = nil
+            self?.searchBar.becomeFirstResponder()
         }
         viewModel.backupPoductsList()
     }
@@ -308,7 +309,7 @@ extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelega
         let product = viewModel.products?[indexPath.item]
         
         cell.productImage.backgroundColor = .lightGray
-
+        
         if let variants = product?.variants {
             let rupee = "\u{20B9}"
             let arrayOfVariants = Array(variants) as! Array<VariantEntity>
