@@ -54,7 +54,7 @@ class HomeViewController: UIViewController, SideMenuProtocol {
             DispatchQueue.main.async {
                 self.collectionView.reloadData()
                 if viewModel.products?.count == 0 {
-                    self.backgroundMessage.text = "Sorry, no more products to display"
+                    self.backgroundMessage.text = MyShop_Strings.NO_MORE_PRODUCTS
                 } else {
                     self.backgroundMessage.text = ""
                 }
@@ -66,7 +66,7 @@ class HomeViewController: UIViewController, SideMenuProtocol {
         // Whenever internet connetion changes
         viewModel.alertMessageDidChange =  { [unowned self] viewModel in
             DispatchQueue.main.async {
-                self.showAlert(withTitle: "Error", andMessage: viewModel.alertMessage)
+                self.showAlert(withTitle: MyShop_Strings.ERROR, andMessage: viewModel.alertMessage)
                 self.backgroundMessage.text = viewModel.alertMessage
                 MBProgressHUD.hide(for: self.view, animated: true)
             }
@@ -78,18 +78,18 @@ class HomeViewController: UIViewController, SideMenuProtocol {
         self.navigationItem.title = viewModel.titleText
         
         let reloadButton = UIButton(frame: CGRect(x: 0, y: 0, width: 30, height: 50))
-        reloadButton.setImage(UIImage(named: "reload"), for: .normal)
+        reloadButton.setImage(UIImage(named: MyShop_Strings.RELOAD), for: .normal)
         reloadButton.imageEdgeInsets = UIEdgeInsets(top: 6, left: 8, bottom: 6, right: 8);
         reloadButton.addTarget(self, action: #selector(reloadData), for: .touchUpInside)
         
         let searchButton = UIButton(frame: CGRect(x: 0, y: 0, width: 30, height: 50))
-        searchButton.setImage(UIImage(named: "search"), for: .normal)
+        searchButton.setImage(UIImage(named: MyShop_Strings.SEARCH), for: .normal)
         searchButton.imageEdgeInsets = UIEdgeInsets(top: 6, left: 8, bottom: 6, right: 8);
         searchButton.addTarget(self, action: #selector(searchProducts), for: .touchUpInside)
         navigationItem.rightBarButtonItems = [UIBarButtonItem(customView: searchButton), UIBarButtonItem(customView: reloadButton)]
         
         let menuButton = UIButton(frame: CGRect(x: 0, y: 0, width: 30, height: 50))
-        menuButton.setImage(UIImage(named: "menu"), for: .normal)
+        menuButton.setImage(UIImage(named: MyShop_Strings.MENU), for: .normal)
         menuButton.imageEdgeInsets = UIEdgeInsets(top: 6, left: 8, bottom: 6, right: 8);
         menuButton.addTarget(self, action: #selector(showSideMenu), for: .touchUpInside)
         navigationItem.leftBarButtonItem = UIBarButtonItem(customView: menuButton)
@@ -110,15 +110,15 @@ class HomeViewController: UIViewController, SideMenuProtocol {
         toolBar.sizeToFit()
         
         // Adding Button ToolBar
-        let doneButton = UIBarButtonItem(title: "Done", style: .plain, target: self, action: #selector(pickerViewDoneClick))
+        let doneButton = UIBarButtonItem(title: MyShop_Strings.DONE, style: .plain, target: self, action: #selector(pickerViewDoneClick))
         let spaceButton = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
-        let cancelButton = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(pickerViewCancelClick))
+        let cancelButton = UIBarButtonItem(title: MyShop_Strings.CANCEL, style: .plain, target: self, action: #selector(pickerViewCancelClick))
         toolBar.setItems([cancelButton, spaceButton, doneButton], animated: false)
     }
     
     func showAlert(withTitle: String?, andMessage: String?) {
         let alert = UIAlertController(title: withTitle, message: andMessage, preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
+        alert.addAction(UIAlertAction(title: MyShop_Strings.OK, style: .default, handler: nil))
         
         self.present(alert, animated: true, completion: nil)
     }
@@ -145,7 +145,7 @@ class HomeViewController: UIViewController, SideMenuProtocol {
         viewModel.getCategories { (categories) in
             if let categories = categories {
                 let categoriesMenu = CategoriesViewController()
-                let categoriesViewModel = CategoriesViewModel(categories: categories, title: "Categories")
+                let categoriesViewModel = CategoriesViewModel(categories: categories, title: MyShop_Strings.CATEGORIES_TITLE)
                 categoriesViewModel.delegate = viewModel as? RefreshHomeViewProtocol
                 categoriesMenu.categoryViewModel = categoriesViewModel
                 let navigationController = UINavigationController.init(rootViewController: categoriesMenu)
@@ -155,9 +155,9 @@ class HomeViewController: UIViewController, SideMenuProtocol {
     }
     
     @objc func showFilterMenu() {
-        let alert = UIAlertController(title: "Variants", message: "Please Select an Option", preferredStyle: .actionSheet)
+        let alert = UIAlertController(title: MyShop_Strings.VARIANTS, message: MyShop_Strings.SELECT_OPTION, preferredStyle: .actionSheet)
         
-        alert.addAction(UIAlertAction(title: "By Color", style: .default , handler:{[weak self] (UIAlertAction)in
+        alert.addAction(UIAlertAction(title: MyShop_Strings.BY_COLOR, style: .default , handler:{[weak self] (UIAlertAction)in
             self?.viewModel.getVariants(completionHandler: { (variants) in
                 if let variants = variants, variants.count > 0 {
                     for variant in variants {
@@ -168,14 +168,14 @@ class HomeViewController: UIViewController, SideMenuProtocol {
                     if let count = self?.pickerData.count, count > 0 {
                         self?.addPickerView()
                     } else {
-                        self?.showAlert(withTitle: nil, andMessage: "Color filter can't be applied to these products.")
+                        self?.showAlert(withTitle: nil, andMessage: MyShop_Strings.NOT_COLOR_FILTER)
                     }
                     self?.filterPickerView.tag = FilterType.color.getTag()
                 }
             })
         }))
         
-        alert.addAction(UIAlertAction(title: "By Size", style: .default , handler:{[weak self] (UIAlertAction)in
+        alert.addAction(UIAlertAction(title: MyShop_Strings.BY_SIZE, style: .default , handler:{[weak self] (UIAlertAction)in
             self?.viewModel.getVariants(completionHandler: { (variants) in
                 if let variants = variants, variants.count > 0 {
                     for variant in variants {
@@ -186,14 +186,14 @@ class HomeViewController: UIViewController, SideMenuProtocol {
                     if let count = self?.pickerData.count, count > 0 {
                         self?.addPickerView()
                     } else {
-                        self?.showAlert(withTitle: nil, andMessage: "Size filter can't be applied to these products.")
+                        self?.showAlert(withTitle: nil, andMessage: MyShop_Strings.NOT_SIZE_FILTER)
                     }
                     self?.filterPickerView.tag = FilterType.size.getTag()
                 }
             })
         }))
         
-        alert.addAction(UIAlertAction(title: "Dismiss", style: .cancel, handler:{ (UIAlertAction)in
+        alert.addAction(UIAlertAction(title: MyShop_Strings.DISMISS, style: .cancel, handler:{ (UIAlertAction)in
             print("User click \(String(describing: UIAlertAction.title)) button")
         }))
         
@@ -203,7 +203,7 @@ class HomeViewController: UIViewController, SideMenuProtocol {
     @objc func showRankingMenu() {
         viewModel.getRankings { (rankings) in
             if let rankings = rankings, rankings.count > 0 {
-                let alert = UIAlertController(title: "Rankings", message: "Please Select an Option", preferredStyle: .actionSheet)
+                let alert = UIAlertController(title: MyShop_Strings.RANKINGS, message: MyShop_Strings.SELECT_OPTION, preferredStyle: .actionSheet)
                 
                 for ranking in rankings {
                     alert.addAction(UIAlertAction(title: ranking.name, style: .default , handler:{[weak self] (UIAlertAction)in
@@ -211,7 +211,7 @@ class HomeViewController: UIViewController, SideMenuProtocol {
                     }))
                 }
                 
-                alert.addAction(UIAlertAction(title: "Dismiss", style: .cancel, handler:{ (UIAlertAction)in
+                alert.addAction(UIAlertAction(title: MyShop_Strings.DISMISS, style: .cancel, handler:{ (UIAlertAction)in
                     print("User click Dismiss button")
                 }))
                 
@@ -221,12 +221,12 @@ class HomeViewController: UIViewController, SideMenuProtocol {
     }
     
     @objc func searchProducts() {
-        searchBar.placeholder = "Enter product name"
+        searchBar.placeholder = MyShop_Strings.NAME_PLACHOLDER
         searchBar.delegate = self
         UIView.animate(withDuration: 2) {[weak self] in
             self?.navigationItem.titleView = self?.searchBar
             
-            let cancelButton = UIBarButtonItem(title: "Cancel", style: .done, target: self, action: #selector(self?.cancelSearch))
+            let cancelButton = UIBarButtonItem(title: MyShop_Strings.CANCEL, style: .done, target: self, action: #selector(self?.cancelSearch))
             self?.navigationItem.rightBarButtonItems = [cancelButton]
             self?.navigationItem.leftBarButtonItem = nil
         }
@@ -314,7 +314,7 @@ extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelega
             let arrayOfVariants = Array(variants) as! Array<VariantEntity>
             cell.priceLabel.text = rupee + " " + "\(arrayOfVariants[0].price)"
         } else {
-            cell.priceLabel.text = "Currently Unavailable"
+            cell.priceLabel.text = MyShop_Strings.NOT_AVAILABLE
         }
         
         cell.descriptionLabel.text = product?.name

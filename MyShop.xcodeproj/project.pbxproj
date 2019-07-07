@@ -17,6 +17,7 @@
 		2516067122D0D6FB00C09DAC /* MyShop-Bridging-Header.h in Sources */ = {isa = PBXBuildFile; fileRef = 2516066D22D0D5AB00C09DAC /* MyShop-Bridging-Header.h */; };
 		2516067322D0E86D00C09DAC /* CartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2516067222D0E86D00C09DAC /* CartViewController.swift */; };
 		2516067522D0E9A300C09DAC /* CartViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2516067422D0E9A300C09DAC /* CartViewModel.swift */; };
+		2516067922D1C1DC00C09DAC /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2516067822D1C1DC00C09DAC /* Constants.swift */; };
 		256816F022CA417000893007 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 256816EF22CA417000893007 /* AppDelegate.swift */; };
 		256816F222CA417000893007 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 256816F122CA417000893007 /* HomeViewController.swift */; };
 		256816F522CA417000893007 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 256816F322CA417000893007 /* Main.storyboard */; };
@@ -45,6 +46,7 @@
 		2516066D22D0D5AB00C09DAC /* MyShop-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MyShop-Bridging-Header.h"; sourceTree = "<group>"; };
 		2516067222D0E86D00C09DAC /* CartViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartViewController.swift; sourceTree = "<group>"; };
 		2516067422D0E9A300C09DAC /* CartViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartViewModel.swift; sourceTree = "<group>"; };
+		2516067822D1C1DC00C09DAC /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		256816EC22CA417000893007 /* MyShop.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyShop.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		256816EF22CA417000893007 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		256816F122CA417000893007 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
@@ -106,6 +108,14 @@
 				2516066C22D0D5AB00C09DAC /* NSManagedObject+Clone.m */,
 			);
 			path = Categories;
+			sourceTree = "<group>";
+		};
+		2516067722D1C1C400C09DAC /* Constants */ = {
+			isa = PBXGroup;
+			children = (
+				2516067822D1C1DC00C09DAC /* Constants.swift */,
+			);
+			path = Constants;
 			sourceTree = "<group>";
 		};
 		256816E322CA417000893007 = {
@@ -201,6 +211,7 @@
 		2568174D22CAD55700893007 /* Global */ = {
 			isa = PBXGroup;
 			children = (
+				2516067722D1C1C400C09DAC /* Constants */,
 				2568170622CA48C000893007 /* CoreData */,
 				2568174E22CAD55E00893007 /* Services */,
 				2516066422D0CF2200C09DAC /* Categories */,
@@ -396,6 +407,7 @@
 				2568175122CAD65C00893007 /* APIService.swift in Sources */,
 				2568171F22CA4AFC00893007 /* CoreDataManager.swift in Sources */,
 				2516065622D0861800C09DAC /* SideMenuTableViewController.swift in Sources */,
+				2516067922D1C1DC00C09DAC /* Constants.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

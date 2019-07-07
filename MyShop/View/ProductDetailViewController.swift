@@ -43,30 +43,31 @@ class ProductDetailViewController: UIViewController {
             color.text = variant.color
             size.text = String(variant.size)
         } else {
-            price.text = "Currently Unavailable"
+            price.text = MyShop_Strings.NOT_AVAILABLE
         }
     }
     
     //MARK: Private methods
     func showAlert(withTitle: String?, andMessage: String?) {
         let alert = UIAlertController(title: withTitle, message: andMessage, preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
+        alert.addAction(UIAlertAction(title: MyShop_Strings.OK, style: .default, handler: nil))
         
         self.present(alert, animated: true, completion: nil)
     }
     
     //MARK: Action methods
     @IBAction func buyProduct() {
+        productDetailsViewModel?.addToCart()
         let storyBoard = UIStoryboard.init(name: "Main", bundle: nil)
         let cartView = storyBoard.instantiateViewController(withIdentifier: "CartViewController") as! CartViewController
-        let cartViewModel = CartViewModel(title: "Cart")
+        let cartViewModel = CartViewModel(title: MyShop_Strings.CART_TITLE)
         cartView.cartViewModel = cartViewModel
         self.navigationController?.pushViewController(cartView, animated: true)
     }
     
     @IBAction func addToCart() {
         productDetailsViewModel?.addToCart()
-        showAlert(withTitle: nil, andMessage: "Product added in cart successfully")
+        showAlert(withTitle: nil, andMessage: MyShop_Strings.PRODUCT_ADDED_SUCCESSFULLY)
     }
     
     @IBAction func changedColor() {

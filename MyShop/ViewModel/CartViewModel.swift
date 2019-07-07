@@ -52,7 +52,7 @@ class CartViewModel: CartViewModelProtocol {
     
     func checkout() {
         if let cartProducts = cartProducts, cartProducts.count > 0 {
-            
+            CoreDataManager.sharedInstance.deletCart()
         }
     }
 }

@@ -20,7 +20,7 @@ class CategoriesViewController: CollapsibleTableSectionViewController {
         self.navigationItem.title = categoryViewModel?.titleText
         
         self.delegate = self as CollapsibleTableSectionDelegate
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(dissmissView))
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: MyShop_Strings.CANCEL, style: .plain, target: self, action: #selector(dissmissView))
     }
     
     @objc func dissmissView(sender: UIBarButtonItem) {

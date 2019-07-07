@@ -24,6 +24,8 @@ class CartViewController: UIViewController {
         initViewModel()
         
         cartViewModel?.fetchAllProducts()
+        
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: MyShop_Strings.CHECKOUT, style: .plain, target: self, action: #selector(checkout))
     }
     
     // MARK: UI Methods
@@ -35,6 +37,22 @@ class CartViewController: UIViewController {
                 self.priceLabel.text = self.cartViewModel?.totalPrice
             }
         }
+    }
+    
+    // MARK: Action methods
+    @objc func checkout() {
+        cartViewModel?.checkout()
+        showAlert(withTitle: MyShop_Strings.SUCCESS, andMessage: MyShop_Strings.ORDER_PLACED)
+    }
+    
+    func showAlert(withTitle: String?, andMessage: String?) {
+        let alert = UIAlertController(title: withTitle, message: andMessage, preferredStyle: .alert)
+        let okAction = UIAlertAction(title: MyShop_Strings.OK, style: .default) { [weak self](_) in
+            self?.navigationController?.popToRootViewController(animated: true)
+        }
+        alert.addAction(okAction)
+        
+        self.present(alert, animated: true, completion: nil)
     }
 }
 
@@ -53,7 +71,7 @@ extension CartViewController: UITableViewDataSource, UITableViewDelegate {
             let rupee = "\u{20B9}"
             price = rupee + " " + "\(variant.price)"
         } else {
-            price = "Currently Unavailable"
+            price = MyShop_Strings.NOT_AVAILABLE
         }
         
         let productNameLabel = cell.contentView.viewWithTag(1) as! UILabel

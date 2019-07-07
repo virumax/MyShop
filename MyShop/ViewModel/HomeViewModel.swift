@@ -91,7 +91,7 @@ class HomeViewModel: HomeViewModelProtocol, RefreshHomeViewProtocol {
                     }
                 }
             } else {
-                alertMessage = "Internet connection not available. Please connect to network and try reloading."
+                alertMessage = MyShop_Strings.NO_INTERNET
             }
         }
     }

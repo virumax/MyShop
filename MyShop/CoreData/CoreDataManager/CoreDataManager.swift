@@ -182,6 +182,12 @@ class CoreDataManager {
         let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "CartEntity")
         return try? managedObjectContext?.fetch(fetchRequest) as? [CartEntity]
     }
+    
+    func deletCart() {
+        let fetch = NSFetchRequest<NSFetchRequestResult>(entityName: "CartEntity")
+        let request = NSBatchDeleteRequest(fetchRequest: fetch)
+        _ = try? managedObjectContext?.execute(request)
+    }
 }
 
 
