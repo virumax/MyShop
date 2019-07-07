@@ -9,7 +9,7 @@
 import Foundation
 import CollapsibleTableSectionViewController
 
-class MenuTableViewController: CollapsibleTableSectionViewController {
+class CategoriesViewController: CollapsibleTableSectionViewController {
     
     var categoryViewModel: CategoriesViewModel?
     
@@ -28,7 +28,7 @@ class MenuTableViewController: CollapsibleTableSectionViewController {
     }
 }
 
-extension MenuTableViewController: CollapsibleTableSectionDelegate {
+extension CategoriesViewController: CollapsibleTableSectionDelegate {
     func numberOfSections(_ tableView: UITableView) -> Int {
         return categoryViewModel?.categoryMenu.count ?? 0
     }
@@ -53,7 +53,7 @@ extension MenuTableViewController: CollapsibleTableSectionDelegate {
     
     func collapsibleTableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if let subCategory: CategoriesEntity = categoryViewModel?.categoryMenu[indexPath.section].subCategories[indexPath.row], let subCategories = subCategory.subCategories as? [Int],  subCategories.count > 0 {
-            let categoriesMenu = MenuTableViewController()
+            let categoriesMenu = CategoriesViewController()
             let newCategoryViewModel = CategoriesViewModel(categories: [subCategory], title: subCategory.name!)
             newCategoryViewModel.delegate = categoryViewModel?.delegate
             categoriesMenu.categoryViewModel = newCategoryViewModel

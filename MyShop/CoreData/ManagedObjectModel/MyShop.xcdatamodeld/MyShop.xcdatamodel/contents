@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="14490.99" systemVersion="18F132" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="CartEntity" representedClassName="CartEntity" syncable="YES" codeGenerationType="class">
+        <relationship name="product" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="ProductEntity" syncable="YES"/>
+        <relationship name="variant" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="VariantEntity" syncable="YES"/>
+    </entity>
     <entity name="CategoriesEntity" representedClassName="CategoriesEntity" syncable="YES" codeGenerationType="class">
         <attribute name="hasParent" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="id" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
@@ -45,5 +49,6 @@
         <element name="RankingProductEntity" positionX="-171" positionY="9" width="128" height="120"/>
         <element name="TaxEntity" positionX="-73.08984375" positionY="177.62109375" width="128" height="90"/>
         <element name="VariantEntity" positionX="-352.453125" positionY="162.625" width="128" height="118"/>
+        <element name="CartEntity" positionX="-216" positionY="-36" width="128" height="75"/>
     </elements>
 </model>

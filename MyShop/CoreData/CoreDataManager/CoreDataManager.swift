@@ -112,6 +112,15 @@ class CoreDataManager {
         return rankingRecord
     }
     
+    func insertInCart(product: ProductEntity, variant: VariantEntity?) -> CartEntity? {
+        let productInCart = NSEntityDescription.insertNewObject(forEntityName: "CartEntity", into: managedObjectContext!) as! CartEntity
+        productInCart.product = product
+        if let variant = variant {
+            productInCart.variant = variant
+        }
+        return productInCart
+    }
+    
     func insertNewRankingProduct(ranking: RankingProduct) -> RankingProductEntity? {
         let rankingProductRecord = NSEntityDescription.insertNewObject(forEntityName: "RankingProductEntity", into: managedObjectContext!) as! RankingProductEntity
         rankingProductRecord.id = Int64(ranking.id)
@@ -167,6 +176,11 @@ class CoreDataManager {
         fetchRequest.predicate = NSPredicate(format: "id IN %@", forIds)
         
         return try? managedObjectContext?.fetch(fetchRequest) as? [ProductEntity]
+    }
+    
+    func fetchProductsInCart() -> [CartEntity]? {
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "CartEntity")
+        return try? managedObjectContext?.fetch(fetchRequest) as? [CartEntity]
     }
 }
 

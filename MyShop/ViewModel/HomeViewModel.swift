@@ -7,39 +7,7 @@
 //
 
 import Foundation
-import CoreData
 
-//class ManagedObjectCloner: NSObject {
-//    
-//    static func cloneObject(source :NSManagedObject, context :NSManagedObjectContext) -> NSManagedObject{
-//        let entityName = source.entity.name
-//        let cloned = NSEntityDescription.insertNewObject(forEntityName: entityName!, into: context)
-//        
-//        let attributes = NSEntityDescription.entity(forEntityName: entityName!, in: context)?.attributesByName
-//        
-//        for (key,_) in attributes! {
-//            cloned.setValue(source.value(forKey: key), forKey: key)
-//        }
-//        
-//        let relationships = NSEntityDescription.entity(forEntityName: entityName!, in: context)?.relationshipsByName
-//        for (key,_) in relationships! {
-//            let sourceSet = source.mutableSetValue(forKey: key)
-//            let clonedSet = cloned.mutableSetValue(forKey: key)
-//            let e = sourceSet.objectEnumerator()
-//            
-//            var relatedObj = e.nextObject() as? NSManagedObject
-//            
-//            while ((relatedObj) != nil) {
-//                let clonedRelatedObject = ManagedObjectCloner.cloneObject(source: relatedObj!, context: context)
-//                clonedSet.add(clonedRelatedObject)
-//                relatedObj = e.nextObject() as? NSManagedObject
-//            }
-//        }
-//        
-//        return cloned
-//    }
-//    
-//}
 protocol RefreshHomeViewProtocol: class {
     func refreshHomeView(forCategory: CategoriesEntity)
 }
@@ -48,7 +16,7 @@ protocol HomeViewModelProtocol {
     var titleText: String { get }
     var products: [ProductEntity]? { get }
     var categories: [CategoriesEntity]? { get }
-    var productsDidChange: ((HomeViewModelProtocol) -> ())? { get set } // function to call when greeting did change
+    var productsDidChange: ((HomeViewModelProtocol) -> ())? { get set } // function to call when products did change
     var currentFilters: [FilterType: [String]] { get set }
     var selectedPickerRow: Int { get set }
     

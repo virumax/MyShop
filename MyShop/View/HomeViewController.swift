@@ -19,7 +19,7 @@ enum MenuItem: String {
     case rankings = "Search by Rankings"
 }
 
-class ViewController: UIViewController, SideMenuProtocol {
+class HomeViewController: UIViewController, SideMenuProtocol {
 
     // View model instance
     lazy var viewModel: HomeViewModelProtocol = {
@@ -121,7 +121,7 @@ class ViewController: UIViewController, SideMenuProtocol {
     @objc func showCategories() {
         viewModel.getCategories { (categories) in
             if let categories = categories {
-                let categoriesMenu = MenuTableViewController()
+                let categoriesMenu = CategoriesViewController()
                 let categoriesViewModel = CategoriesViewModel(categories: categories, title: "Categories")
                 categoriesViewModel.delegate = viewModel as? RefreshHomeViewProtocol
                 categoriesMenu.categoryViewModel = categoriesViewModel
@@ -267,7 +267,7 @@ class ViewController: UIViewController, SideMenuProtocol {
 }
 
 // MARK: UICollectionView Delegate and DataSource
-extension ViewController: UICollectionViewDataSource, UICollectionViewDelegate {
+extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return viewModel.products?.count ?? 0
     }
@@ -279,7 +279,7 @@ extension ViewController: UICollectionViewDataSource, UICollectionViewDelegate {
         
         let product = viewModel.products?[indexPath.item]
         
-        cell.productImage.backgroundColor = .red
+        cell.productImage.backgroundColor = .lightGray
 
         if let variants = product?.variants {
             let rupee = "\u{20B9}"
@@ -295,12 +295,18 @@ extension ViewController: UICollectionViewDataSource, UICollectionViewDelegate {
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        print("Selected item is \(indexPath.item)")
+        if let product = viewModel.products?[indexPath.item] {
+            let storyBoard = UIStoryboard.init(name: "Main", bundle: nil)
+            let productDetailsView = storyBoard.instantiateViewController(withIdentifier: "ProductDetails") as! ProductDetailViewController
+            let productDetailsViewModel = ProductDetailsViewModel(product: product, title: product.name!)
+            productDetailsView.productDetailsViewModel = productDetailsViewModel
+            self.navigationController?.pushViewController(productDetailsView, animated: true)
+        }
     }
 }
 
 //MARK: Determine the size of collection view cell
-extension ViewController: UICollectionViewDelegateFlowLayout {
+extension HomeViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let width = (self.view.frame.size.width - 15 * 2) / 2 //some width
         let height = width * 1.6 //ratio
@@ -313,7 +319,7 @@ extension ViewController: UICollectionViewDelegateFlowLayout {
 }
 
 //MARK: pickerview delegate & datasource
-extension ViewController: UIPickerViewDataSource, UIPickerViewDelegate {
+extension HomeViewController: UIPickerViewDataSource, UIPickerViewDelegate {
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 1
     }
@@ -332,7 +338,7 @@ extension ViewController: UIPickerViewDataSource, UIPickerViewDelegate {
 }
 
 //MARK: UISearchBar delegate
-extension ViewController: UISearchBarDelegate {
+extension HomeViewController: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         viewModel.filterBySearchTerm(searchText: searchText)
     }
